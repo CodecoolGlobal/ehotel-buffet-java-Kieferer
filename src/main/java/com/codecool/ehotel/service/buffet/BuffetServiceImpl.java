@@ -18,5 +18,10 @@ public class BuffetServiceImpl implements BuffetService {
 
     }
 
+    @Override
+    public Buffet refill(Buffet buffet) {
+        return null;
+    }
+
 
 }

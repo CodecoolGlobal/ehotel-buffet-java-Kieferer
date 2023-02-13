@@ -5,11 +5,6 @@ import com.codecool.ehotel.model.Meal;
 import com.codecool.ehotel.model.MealType;
 
 public class consumeFreshest implements BuffetService {
-    @Override
-    public Meal[] addNewPortion() {
-        return new Meal[0];
-    }
-
 
     public boolean consumeFreshest(Buffet currentBuffet, MealType meal) {
 //        //placeholder variables.
@@ -18,5 +13,15 @@ public class consumeFreshest implements BuffetService {
 //            return true;
 //        }
         return false;
+    }
+
+    @Override
+    public void collectWaste(Buffet currentBuffet) {
+
+    }
+
+    @Override
+    public Buffet refill(Buffet buffet) {
+        return null;
     }
 }
