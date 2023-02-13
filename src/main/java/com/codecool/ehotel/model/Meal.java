@@ -1,4 +1,6 @@
 package com.codecool.ehotel.model;
 
-public record Meal(MealType mealType, int[] timestamp) {
+import java.util.List;
+
+public record Meal(MealType mealType, List<Integer> timestamp) {
 }

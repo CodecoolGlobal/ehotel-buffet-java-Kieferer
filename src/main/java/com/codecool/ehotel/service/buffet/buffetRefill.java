@@ -30,11 +30,12 @@ public class buffetRefill implements BuffetService{
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
-    public int[] timestamp(){
-        int[] timestamp = new int[getRandomNumberUsingNextInt(1,10)];
-        for (int i = 0; i < timestamp.length; i++){
-            timestamp[i] = 0;
+    public List<Integer> timestamp(){
+        List<Integer>timestamp = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++){
+            timestamp.add(i,0);
         }
         return timestamp;
     }
+
 }
