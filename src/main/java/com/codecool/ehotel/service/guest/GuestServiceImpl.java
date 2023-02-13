@@ -3,6 +3,7 @@ package com.codecool.ehotel.service.guest;
 import com.codecool.ehotel.model.Guest;
 import com.codecool.ehotel.model.GuestType;
 import com.codecool.ehotel.utils.JSONReader;
+import com.codecool.ehotel.utils.Random;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -13,8 +14,13 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public Guest generateRandomGuest(LocalDate seasonStart, LocalDate seasonEnd) throws FileNotFoundException {
-        //return new Guest(JSONReader.getRandomFromJSONFile(), GuestType.);
-        return null;
+        LocalDate startDate = Random.RangeDate(seasonStart, seasonEnd);
+        int limit = seasonEnd.getDayOfMonth() - seasonStart.getDayOfMonth();
+        return new Guest(JSONReader.getRandomFromJSONFile(),
+                GuestType.valueOf(GuestType.values()[Random.Range(0, GuestType.values().length - 1)].name()),
+                startDate,
+                LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth() + Random.Range(1, limit))
+        );
     }
 
     @Override

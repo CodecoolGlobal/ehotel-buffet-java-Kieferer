@@ -6,9 +6,7 @@ public class EHotelBuffetApplication {
 
         // Initialize services
 
-
         // Generate guests for the season
-
 
         // Run breakfast buffet
 
