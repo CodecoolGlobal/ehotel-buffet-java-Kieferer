@@ -7,21 +7,24 @@ import com.codecool.ehotel.model.MealType;
 import java.util.*;
 
 public class buffetRefill implements BuffetService{
-    private Meal[]meals = new Meal[5];
     @Override
     public boolean consumeFreshest(Buffet currentBuffet, MealType meal) {
         return false;
     }
 
     @Override
-    public Meal[] addNewPortion() {
+    public void collectWaste(Buffet currentBuffet) {
 
-        meals[0] = new Meal(MealType.BUN,timestamp());
-        meals[1] = new Meal(MealType.CEREAL,timestamp());
-        meals[2] = new Meal(MealType.CEREAL,timestamp());
-        meals[3] = new Meal(MealType.CEREAL,timestamp());
-        meals[4] = new Meal(MealType.CEREAL,timestamp());
-        return meals;
+    }
+
+    @Override
+    public Buffet refill(Buffet buffet) {
+        buffet.meals().add(new Meal(MealType.BUN,timestamp()));
+        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
+        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
+        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
+        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
+        return buffet;
     }
     public int getRandomNumberUsingNextInt(int min, int max) {
         Random random = new Random();
@@ -30,7 +33,7 @@ public class buffetRefill implements BuffetService{
     public int[] timestamp(){
         int[] timestamp = new int[getRandomNumberUsingNextInt(1,10)];
         for (int i = 0; i < timestamp.length; i++){
-            timestamp[i] = getRandomNumberUsingNextInt(1,10);
+            timestamp[i] = 0;
         }
         return timestamp;
     }

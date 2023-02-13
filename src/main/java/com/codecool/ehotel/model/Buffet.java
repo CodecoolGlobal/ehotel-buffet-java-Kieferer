@@ -1,5 +1,9 @@
 package com.codecool.ehotel.model;
 
 
-public record Buffet (Meal[] preparedMeals) {
+import java.util.List;
+
+public record Buffet (List<Meal> meals) {
+
+
 }
