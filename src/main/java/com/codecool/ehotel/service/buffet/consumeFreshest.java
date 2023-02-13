@@ -12,11 +12,13 @@ public class consumeFreshest implements BuffetService {
 
 
     public boolean consumeFreshest(Buffet currentBuffet, MealType meal) {
-    /*    //placeholder variables.
-        if (currentBuffet.meals().contains(meal)) {
-            currentBuffet.meals().remove(meal);
-            return true;
-        }*/
+       //placeholder variables.
+        for (int i = 0; i < currentBuffet.preparedMeals().length; i++) {
+            if(currentBuffet.preparedMeals()[i].mealType() == meal){
+                currentBuffet.preparedMeals()[i].timestamp();
+                
+            }
+        }
         return false;
     }
 }
