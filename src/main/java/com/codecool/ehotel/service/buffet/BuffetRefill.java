@@ -6,7 +6,7 @@ import com.codecool.ehotel.model.MealType;
 
 import java.util.*;
 
-public class buffetRefill implements BuffetService{
+public class BuffetRefill implements BuffetService{
     @Override
     public Buffet consumeFreshest(Buffet currentBuffet, MealType meal) {
         return currentBuffet;
@@ -18,13 +18,20 @@ public class buffetRefill implements BuffetService{
     }
 
     @Override
-    public Buffet refill(Buffet buffet) {
-        buffet.meals().add(new Meal(MealType.BUN,timestamp()));
-        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
-        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
-        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
-        buffet.meals().add(new Meal(MealType.CEREAL,timestamp()));
-        return buffet;
+    public void refill(Buffet buffet) {
+        for (Meal meal: buffet.meals()) {
+            if(meal.timestamp().size()<2){
+                meal.timestamp().add(0);
+            }
+        }
+    }
+    public List<Meal>fill(List<Meal>meals){
+        meals.add(new Meal(MealType.BUN,timestamp()));
+        meals.add(new Meal(MealType.CEREAL,timestamp()));
+        meals.add(new Meal(MealType.CEREAL,timestamp()));
+        meals.add(new Meal(MealType.CEREAL,timestamp()));
+        meals.add(new Meal(MealType.CEREAL,timestamp()));
+        return meals;
     }
     public int getRandomNumberUsingNextInt(int min, int max) {
         Random random = new Random();

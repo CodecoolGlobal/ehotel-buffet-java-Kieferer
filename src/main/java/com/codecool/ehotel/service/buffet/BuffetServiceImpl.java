@@ -20,7 +20,6 @@ public class BuffetServiceImpl implements BuffetService {
                 decreaseFreshness(currentBuffet);
                 System.out.println("One piece of: " + currentBuffetMeal.mealType() + " has been consumed.");
             }
-
             else if (currentBuffetMeal.mealType().equals(meal)) {
                 decreaseFreshness(currentBuffet);
                 System.out.println("There is no more " + currentBuffetMeal.mealType() + " has been consumed.");
@@ -45,17 +44,17 @@ public class BuffetServiceImpl implements BuffetService {
         for (Meal meal : currentBuffet.meals()) {
             switch (meal.mealType().getDurability()) {
                 case SHORT -> {
-                    List<Integer> waste = meal.timestamp().stream().filter(c -> c < 3).toList();
+                    List<Integer> waste = meal.timestamp().stream().filter(c -> c > 3).toList();
                     collectiveWastedMoney += waste.size() * meal.mealType().getCost();
                     meal.timestamp().removeAll(waste);
                 }
                 case MEDIUM -> {
-                    List<Integer> waste = meal.timestamp().stream().filter(c -> c < 5).toList();
+                    List<Integer> waste = meal.timestamp().stream().filter(c -> c > 5).toList();
                     collectiveWastedMoney += waste.size() * meal.mealType().getCost();
                     meal.timestamp().removeAll(waste);
                 }
                 case LONG -> {
-                    List<Integer> waste = meal.timestamp().stream().filter(c -> c < 7).toList();
+                    List<Integer> waste = meal.timestamp().stream().filter(c -> c > 10).toList();
                     collectiveWastedMoney += waste.size() * meal.mealType().getCost();
                     meal.timestamp().removeAll(waste);
                 }
@@ -67,8 +66,7 @@ public class BuffetServiceImpl implements BuffetService {
     }
 
     @Override
-    public Buffet refill(Buffet buffet) {
-        return null;
+    public void refill(Buffet buffet) {
     }
 
 
