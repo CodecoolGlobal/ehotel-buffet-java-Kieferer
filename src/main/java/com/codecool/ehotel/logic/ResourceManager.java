@@ -12,7 +12,7 @@ public class ResourceManager {
     public static ResourceManager getInstance(){
         return instance;
     };
-    private LocalDate simulationDate, simulationEndDate;
+    private LocalDate simulationStartDate, simulationEndDate, simulationDate;
     private final List<Guest> guestList = new ArrayList<>();
     public List<Guest> getGuestList() {
         return guestList;
@@ -20,8 +20,12 @@ public class ResourceManager {
     public LocalDate getSimulationDate(){ return simulationDate; }
     public LocalDate getSimulationEndDate(){ return simulationEndDate; }
     public void setSimulationInterval(LocalDate startDate, LocalDate endDate){
-        simulationDate = startDate;
+        simulationStartDate = startDate;
         simulationEndDate = endDate;
+        simulationDate = simulationStartDate;
+    }
+    public Integer getLengthOfCycle() {
+        return simulationEndDate.getDayOfMonth() - simulationStartDate.getDayOfMonth();
     }
     public void tickSimulationDate(){
         simulationDate = simulationDate.plusDays(1);

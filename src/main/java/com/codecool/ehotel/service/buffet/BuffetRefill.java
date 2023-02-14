@@ -33,6 +33,15 @@ public class BuffetRefill implements BuffetService{
         meals.add(new Meal(MealType.CEREAL,timestamp()));
         return meals;
     }
+    public List<Meal> fill() {
+        List<Meal> mealList = new ArrayList<>();
+        mealList.add(new Meal(MealType.BUN,timestamp()));
+        mealList.add(new Meal(MealType.CEREAL,timestamp()));
+        mealList.add(new Meal(MealType.CEREAL,timestamp()));
+        mealList.add(new Meal(MealType.CEREAL,timestamp()));
+        mealList.add(new Meal(MealType.CEREAL,timestamp()));
+        return mealList;
+    }
     public int getRandomNumberUsingNextInt(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
