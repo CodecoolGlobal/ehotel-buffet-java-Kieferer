@@ -14,8 +14,8 @@ public class BuffetServiceImpl implements BuffetService {
         }
         return currentBuffet;
     }
-    public void collectWaste(Buffet currentBuffet) {
-
+    public int collectWaste(Buffet currentBuffet) {
+return 0;
     }
 
     @Override

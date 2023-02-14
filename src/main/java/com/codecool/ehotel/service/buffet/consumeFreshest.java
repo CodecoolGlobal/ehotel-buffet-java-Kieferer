@@ -39,26 +39,30 @@ public class consumeFreshest implements BuffetService {
     }
 
     @Override
-    public void collectWaste(Buffet currentBuffet) {
+    public int collectWaste(Buffet currentBuffet) {
+        int collectiveWastedMoney = 0;
         for (Meal meal : currentBuffet.meals()) {
             switch (meal.mealType().getDurability()) {
                 case SHORT -> {
                     List<Integer> waste = meal.timestamp().stream().filter(c -> c < 3).toList();
+                    collectiveWastedMoney += waste.size() * meal.mealType().getCost();
                     meal.timestamp().removeAll(waste);
                 }
                 case MEDIUM -> {
                     List<Integer> waste = meal.timestamp().stream().filter(c -> c < 5).toList();
+                    collectiveWastedMoney += waste.size() * meal.mealType().getCost();
                     meal.timestamp().removeAll(waste);
                 }
                 case LONG -> {
                     List<Integer> waste = meal.timestamp().stream().filter(c -> c < 7).toList();
+                    collectiveWastedMoney += waste.size() * meal.mealType().getCost();
                     meal.timestamp().removeAll(waste);
                 }
             }
 
-
         }
 
+        return collectiveWastedMoney;
     }
 
     @Override

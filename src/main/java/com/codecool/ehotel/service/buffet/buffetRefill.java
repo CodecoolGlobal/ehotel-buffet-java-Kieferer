@@ -13,8 +13,8 @@ public class buffetRefill implements BuffetService{
     }
 
     @Override
-    public void collectWaste(Buffet currentBuffet) {
-
+    public int collectWaste(Buffet currentBuffet) {
+        return 0;
     }
 
     @Override
