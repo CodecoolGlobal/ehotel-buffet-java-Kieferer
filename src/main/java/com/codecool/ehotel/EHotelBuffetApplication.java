@@ -14,11 +14,11 @@ import java.time.LocalDate;
 
 import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.MealType;
-import com.codecool.ehotel.service.buffet.buffetRefill;
-import com.codecool.ehotel.service.buffet.consumeFreshest;
 
 import java.util.ArrayList;
->>>>>>>>> Temporary merge branch 2
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class EHotelBuffetApplication {
 
@@ -40,14 +40,13 @@ public class EHotelBuffetApplication {
         consumeFreshest consumeFreshest = new consumeFreshest();
         buffetRefill.refill(buffet);
         consumeFreshest.consumeFreshest(buffet, MealType.BUN);
-        buffet.meals().get(0).timestamp().add(0);;
+        buffet.meals().get(0).timestamp().add(0);
         System.out.println(buffet.meals().get(0));
         for (int meal:buffet.meals().get(0).timestamp()) {
             System.out.println(meal);
         }
         BreakfastGroup breakfastGroup = new BreakfastGroup();
-        Set<Guest>guests = new HashSet<>();
-        GuestServiceImpl guestService = new GuestServiceImpl();
+        Set<Guest> guests = new HashSet<>();
         //guestService.generateRandomGuest(LocalDate.parse("2018-12-01") , LocalDate.parse("2018-12-07"));
         guests.add(new Guest("Dan", GuestType.BUSINESS, LocalDate.parse("2018-12-01"),LocalDate.parse("2018-12-07")));
         guests.add(new Guest("Dasn", GuestType.BUSINESS, LocalDate.parse("2018-12-01"),LocalDate.parse("2018-12-07")));
@@ -64,7 +63,7 @@ public class EHotelBuffetApplication {
         guests.add(new Guest("2424Dan", GuestType.BUSINESS, LocalDate.parse("2018-12-01"),LocalDate.parse("2018-12-07")));
         guests.add(new Guest("qweqweDan", GuestType.BUSINESS, LocalDate.parse("2018-12-01"),LocalDate.parse("2018-12-07")));
 
-        List<Group>groups = breakfastGroup.prepareBreakfastGroups(guests);
+        List<Group> groups = breakfastGroup.prepareBreakfastGroups(guests);
         System.out.println(groups.size());
         for (Group group:groups) {
             System.out.println(group);
