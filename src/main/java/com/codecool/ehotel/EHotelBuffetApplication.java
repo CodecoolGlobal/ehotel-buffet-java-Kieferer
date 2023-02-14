@@ -2,11 +2,11 @@ package com.codecool.ehotel;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
 import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.model.*;
 import com.codecool.ehotel.service.breakfast.BreakfastGroup;
 import com.codecool.ehotel.service.buffet.buffetRefill;
-import com.codecool.ehotel.service.buffet.consumeFreshest;
 import com.codecool.ehotel.service.guest.GuestServiceImpl;
 
 import java.io.FileNotFoundException;
@@ -37,9 +37,9 @@ public class EHotelBuffetApplication {
 
         Buffet buffet = new Buffet(new ArrayList<>());
         buffetRefill buffetRefill = new buffetRefill();
-        consumeFreshest consumeFreshest = new consumeFreshest();
+        BuffetServiceImpl buffetServiceImpl = new BuffetServiceImpl();
         buffetRefill.refill(buffet);
-        consumeFreshest.consumeFreshest(buffet, MealType.BUN);
+        buffetServiceImpl.consumeFreshest(buffet, MealType.BUN);
         buffet.meals().get(0).timestamp().add(0);
         System.out.println(buffet.meals().get(0));
         for (int meal:buffet.meals().get(0).timestamp()) {
