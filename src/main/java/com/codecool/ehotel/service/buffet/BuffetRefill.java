@@ -8,8 +8,8 @@ import java.util.*;
 
 public class BuffetRefill implements BuffetService{
     @Override
-    public Buffet consumeFreshest(Buffet currentBuffet, MealType meal) {
-        return currentBuffet;
+    public int consumeFreshest(Buffet currentBuffet, MealType meal) {
+        return 0;
     }
 
     @Override
@@ -20,26 +20,23 @@ public class BuffetRefill implements BuffetService{
     @Override
     public void refill(Buffet buffet) {
         for (Meal meal: buffet.meals()) {
-            if(meal.timestamp().size()<2){
+            if(meal.timestamp().size()<1){
                 meal.timestamp().add(0);
             }
         }
-    }
-    public List<Meal>fill(List<Meal>meals){
-        meals.add(new Meal(MealType.BUN,timestamp()));
-        meals.add(new Meal(MealType.CEREAL,timestamp()));
-        meals.add(new Meal(MealType.CEREAL,timestamp()));
-        meals.add(new Meal(MealType.CEREAL,timestamp()));
-        meals.add(new Meal(MealType.CEREAL,timestamp()));
-        return meals;
     }
     public List<Meal> fill() {
         List<Meal> mealList = new ArrayList<>();
         mealList.add(new Meal(MealType.BUN,timestamp()));
         mealList.add(new Meal(MealType.CEREAL,timestamp()));
-        mealList.add(new Meal(MealType.CEREAL,timestamp()));
-        mealList.add(new Meal(MealType.CEREAL,timestamp()));
-        mealList.add(new Meal(MealType.CEREAL,timestamp()));
+        mealList.add(new Meal(MealType.CROISSANT ,timestamp()));
+        mealList.add(new Meal(MealType.MILK ,timestamp()));
+        mealList.add(new Meal(MealType.FRIED_BACON ,timestamp()));
+        mealList.add(new Meal(MealType.MASHED_POTATO ,timestamp()));
+        mealList.add(new Meal(MealType.MUFFIN ,timestamp()));
+        mealList.add(new Meal(MealType.PANCAKE ,timestamp()));
+        mealList.add(new Meal(MealType.SCRAMBLED_EGGS ,timestamp()));
+        mealList.add(new Meal(MealType.SUNNY_SIDE_UP ,timestamp()));
         return mealList;
     }
     public int getRandomNumberUsingNextInt(int min, int max) {
@@ -47,8 +44,8 @@ public class BuffetRefill implements BuffetService{
         return random.nextInt(max - min) + min;
     }
     public List<Integer> timestamp(){
-        List<Integer>timestamp = new ArrayList<>(5);
-        for (int i = 0; i < 5; i++){
+        List<Integer>timestamp = new ArrayList<>(8);
+        for (int i = 0; i < 8; i++){
             timestamp.add(i,0);
         }
         return timestamp;

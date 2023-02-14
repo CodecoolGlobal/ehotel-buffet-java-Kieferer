@@ -5,7 +5,7 @@ import com.codecool.ehotel.model.MealType;
 
 
 public interface BuffetService {
-    Buffet consumeFreshest(Buffet currentBuffet, MealType meal);
+    int consumeFreshest(Buffet currentBuffet, MealType meal);
     int collectWaste(Buffet currentBuffet);
     void refill(Buffet buffet);
 }

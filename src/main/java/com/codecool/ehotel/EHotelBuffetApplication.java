@@ -2,6 +2,8 @@ package com.codecool.ehotel;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Buffet;
+import com.codecool.ehotel.service.breakfast.BreakfastGroup;
+import com.codecool.ehotel.service.breakfast.BreakfastManager;
 import com.codecool.ehotel.service.buffet.BuffetRefill;
 import com.codecool.ehotel.service.buffet.BuffetService;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
@@ -18,10 +20,14 @@ public class EHotelBuffetApplication {
         GuestService guestService = new GuestServiceImpl();
         BuffetService buffetService = new BuffetServiceImpl();
         BuffetRefill buffetManager = new BuffetRefill();
+        Buffet buffet = new Buffet(buffetManager.fill());
+        BreakfastGroup breakfastGroup = new BreakfastGroup();
+        BreakfastManager breakfastManager = new BreakfastManager();
+        ResourceManager.getInstance().getBuffet();
+
         ResourceManager.getInstance().setSimulationInterval(
                 LocalDate.of(2023, 10, 1),
                 LocalDate.of(2023, 10, 10));
-        Buffet buffet = new Buffet(buffetManager.fill());
         // Generate guests for the season
         for (int i = 0; i < 100; i++) {
             ResourceManager.getInstance().addGuestToList(guestService.generateRandomGuest());
@@ -31,6 +37,9 @@ public class EHotelBuffetApplication {
             ResourceManager.getInstance().tickSimulationDate();
 
         }
+        breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(ResourceManager.getInstance().getGuestList()));
         System.out.println("Wasted food: $" + buffetService.collectWaste(buffet));
+
+
     }
 }

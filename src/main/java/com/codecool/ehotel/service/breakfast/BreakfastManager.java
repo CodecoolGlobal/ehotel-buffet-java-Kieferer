@@ -1,39 +1,46 @@
 package com.codecool.ehotel.service.breakfast;
 
+import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.Group;
 import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.model.MealType;
 import com.codecool.ehotel.service.buffet.BuffetRefill;
+import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
 
 import java.util.List;
 import java.util.Random;
 
 public class BreakfastManager {
-    private Random random = new Random();
+    private final Random random = new Random();
     BuffetRefill buffetRefill = new BuffetRefill();
-    public void serve(List<Group>guestGroups, Buffet buffet){
-    int unhappyGuests = 0;
-    int costOfWastedFood = 0;
-    for (int i =0; i <guestGroups.size();i++) {
-        if (i == 0){
-            buffetRefill.fill(buffet.meals());
-            for (Guest guest:guestGroups.get(i).guestGroup()) {
-                int currentPreference = random .nextInt(0, guest.guestType().getMealPreferences().size());
-                buffetRefill.consumeFreshest(buffet,guest.guestType().getMealPreferences().get(currentPreference));
+    BuffetServiceImpl buffetService = new BuffetServiceImpl();
+    public void serve(List<Group>guestGroups){
+        Buffet buffet = ResourceManager.getInstance().getBuffet();
+        List<MealType> currentGuestPreference;
+        int unhappyGuests = 0;
+        int costOfWastedFood = 0;
+
+        for (int i =0; i <guestGroups.size();i++) {
+            if (i < 1){
+                buffet.meals().addAll(buffetRefill.fill());
             }
-        } else {
             buffetRefill.refill(buffet);
+
             for (Guest guest:guestGroups.get(i).guestGroup()) {
-                int currentPreference = random .nextInt(0, guest.guestType().getMealPreferences().size());
-                buffetRefill.consumeFreshest(buffet,guest.guestType().getMealPreferences().get(currentPreference));
+                currentGuestPreference= guest.guestType().getMealPreferences();
+                int currentPreference = random .nextInt(0, currentGuestPreference.size());
+                unhappyGuests += buffetService.consumeFreshest(buffet,currentGuestPreference.get(currentPreference));
             }
+            buffetService.decreaseFreshness(buffet);
+            costOfWastedFood += buffetService.collectWaste(buffet);
+
         }
-    }
-        /*TODO:Each cycle : fill or refill(any type any number) buffet/ consume breakfast->
-           guest search mealPreferences 0 at first if empty the guest becomes unhappy
-           discard old meals that are not fresh
-           at the end of the cycles all meal discarded except the long ones.
-           collect and display the number of unhappy guests and cost of waste     */
+        buffetService.decreaseFreshness(buffet);
+        costOfWastedFood += buffetService.collectWaste(buffet);
+
+    System.out.println("During breakfast there were " + unhappyGuests + " unhappy guest.");
+    System.out.println("After breakfast there were $" + costOfWastedFood + " of wasted food.");
 
     }
 

@@ -7,24 +7,24 @@ import java.util.*;
 
 
 public class BreakfastGroup{
-    private Random random = new Random();
+    private final Random random = new Random();
 
-    public List<Group> prepareBreakfastGroups(Set<Guest> guests) {
-        List<Guest> guestsToAssing = new LinkedList<>(guests);
+    public List<Group> prepareBreakfastGroups(List<Guest> guests) {
+        List<Guest> guestsToAssign = new LinkedList<>(guests);
         List<Group> groups = new LinkedList();
 
         for (double time = 6.0; time < 10; time += 0.5) {
-            if(guestsToAssing.size() == 0) {
+            if(guestsToAssign.size() == 0) {
                 break;
             }
 
-            int currentGroupSize = random.nextInt(0, guestsToAssing.size());
+            int currentGroupSize = random.nextInt(0, guestsToAssign.size());
 
             List<Guest> assignedGuests;
             if(time==9.5){
-                assignedGuests = guestsToAssing;
+                assignedGuests = guestsToAssign;
             } else {
-                assignedGuests = fillCurrentGroup(currentGroupSize, guestsToAssing);
+                assignedGuests = fillCurrentGroup(currentGroupSize, guestsToAssign);
             }
             groups.add(new Group(assignedGuests));
         }
