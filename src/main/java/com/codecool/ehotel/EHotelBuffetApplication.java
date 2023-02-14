@@ -35,5 +35,10 @@ public class EHotelBuffetApplication {
         consumeFreshest consumeFreshest = new consumeFreshest();
         buffetRefill.refill(buffet);
         consumeFreshest.consumeFreshest(buffet, MealType.BUN);
+        buffet.meals().get(0).timestamp().add(0);;
+        System.out.println(buffet.meals().get(0));
+        for (int meal:buffet.meals().get(0).timestamp()) {
+            System.out.println(meal);
+        }
     }
 }

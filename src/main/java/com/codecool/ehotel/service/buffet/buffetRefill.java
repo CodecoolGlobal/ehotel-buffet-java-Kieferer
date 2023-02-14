@@ -8,8 +8,8 @@ import java.util.*;
 
 public class buffetRefill implements BuffetService{
     @Override
-    public boolean consumeFreshest(Buffet currentBuffet, MealType meal) {
-        return false;
+    public Buffet consumeFreshest(Buffet currentBuffet, MealType meal) {
+        return currentBuffet;
     }
 
     @Override
