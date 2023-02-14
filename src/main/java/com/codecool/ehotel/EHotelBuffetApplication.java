@@ -24,12 +24,13 @@ public class EHotelBuffetApplication {
                 LocalDate.of(2023, 10, 10));
         Buffet buffet = new Buffet(buffetManager.fill());
         // Generate guests for the season
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             ResourceManager.getInstance().addGuestToList(guestService.generateRandomGuest());
         }
         // Run breakfast buffet
         for (int i = 0; i < ResourceManager.getInstance().getLengthOfCycle(); i++){
             ResourceManager.getInstance().tickSimulationDate();
+
         }
         System.out.println("Wasted food: $" + buffetService.collectWaste(buffet));
     }
