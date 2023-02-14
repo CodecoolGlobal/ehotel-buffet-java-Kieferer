@@ -9,9 +9,8 @@ import java.util.List;
 
 public class consumeFreshest implements BuffetService {
 
-    public boolean consumeFreshest(Buffet currentBuffet, MealType meal) {
+    public Buffet consumeFreshest(Buffet currentBuffet, MealType meal) {
        //placeholder variables.
-        boolean foundMeal = false;
         orderByFreshness(currentBuffet);
         List<Meal> currentBuffetMeals = currentBuffet.meals();
         for (Meal currentBuffetMeal : currentBuffetMeals) {
@@ -19,14 +18,14 @@ public class consumeFreshest implements BuffetService {
                 currentBuffetMeal.timestamp().remove(0);
                 decreaseFreshness(currentBuffet);
                 System.out.println("One piece of: " + currentBuffetMeal.mealType() + " has been consumed.");
-                foundMeal = true;
             }
+
             else if (currentBuffetMeal.mealType().equals(meal)) {
             decreaseFreshness(currentBuffet);
             System.out.println("There is no more " + currentBuffetMeal.mealType() + " has been consumed.");
             }
         }
-        return foundMeal;
+        return currentBuffet;
     }
     public void orderByFreshness(Buffet buffet){
         for (Meal meal: buffet.meals()) {
@@ -35,13 +34,32 @@ public class consumeFreshest implements BuffetService {
     }
     public void decreaseFreshness(Buffet buffet){
         for (Meal meal: buffet.meals()) {
-            for (int timestamp:meal.timestamp()) {
-                timestamp++;
+            for (int i = 0; i < meal.timestamp().size();i++) {
+                meal.timestamp().set(i,meal.timestamp().get(i)+1);
             }
         }
     }
+
     @Override
     public void collectWaste(Buffet currentBuffet) {
+        for (Meal meal : currentBuffet.meals()) {
+            switch (meal.mealType().getDurability()) {
+                case SHORT -> {
+                    List<Integer> waste = meal.timestamp().stream().filter(c -> c < 3).toList();
+                    meal.timestamp().removeAll(waste);
+                }
+                case MEDIUM -> {
+                    List<Integer> waste = meal.timestamp().stream().filter(c -> c < 5).toList();
+                    meal.timestamp().removeAll(waste);
+                }
+                case LONG -> {
+                    List<Integer> waste = meal.timestamp().stream().filter(c -> c < 7).toList();
+                    meal.timestamp().removeAll(waste);
+                }
+            }
+
+
+        }
 
     }
 

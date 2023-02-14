@@ -6,13 +6,13 @@ import com.codecool.ehotel.model.MealType;
 public class BuffetServiceImpl implements BuffetService {
 
 
-    public boolean consumeFreshest(Buffet currentBuffet, MealType meal) {
+    public Buffet consumeFreshest(Buffet currentBuffet, MealType meal) {
         //placeholder variables.
         if (currentBuffet.meals().contains(meal)) {
             currentBuffet.meals().remove(meal);
-            return true;
+            return currentBuffet;
         }
-        return false;
+        return currentBuffet;
     }
     public void collectWaste(Buffet currentBuffet) {
 

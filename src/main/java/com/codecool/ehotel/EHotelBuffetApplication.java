@@ -1,5 +1,8 @@
 package com.codecool.ehotel;
 
+import com.codecool.ehotel.logic.ResourceManager;
+import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.model.*;
 import com.codecool.ehotel.service.breakfast.BreakfastGroup;
 import com.codecool.ehotel.service.buffet.buffetRefill;
@@ -8,25 +11,40 @@ import com.codecool.ehotel.service.guest.GuestServiceImpl;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+
+import com.codecool.ehotel.model.Buffet;
+import com.codecool.ehotel.model.MealType;
+import com.codecool.ehotel.service.buffet.buffetRefill;
+import com.codecool.ehotel.service.buffet.consumeFreshest;
+
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+>>>>>>>>> Temporary merge branch 2
 
 public class EHotelBuffetApplication {
 
     public static void main(String[] args) throws FileNotFoundException {
 
         // Initialize services
-
+        GuestService guestService = new GuestServiceImpl();
         // Generate guests for the season
-
+        for (int i = 0; i < 100; i++){
+            ResourceManager.getInstance().addGuestToList(guestService.generateRandomGuest(LocalDate.of(2023, 10, 1), LocalDate.of(2023, 10, 10)));
+        }
         // Run breakfast buffet
+        for (Guest guest : ResourceManager.getInstance().getGuestList()) {
+            System.out.println(guest.name());
+        }
+
         Buffet buffet = new Buffet(new ArrayList<>());
         buffetRefill buffetRefill = new buffetRefill();
         consumeFreshest consumeFreshest = new consumeFreshest();
         buffetRefill.refill(buffet);
         consumeFreshest.consumeFreshest(buffet, MealType.BUN);
+        buffet.meals().get(0).timestamp().add(0);;
+        System.out.println(buffet.meals().get(0));
+        for (int meal:buffet.meals().get(0).timestamp()) {
+            System.out.println(meal);
+        }
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         Set<Guest>guests = new HashSet<>();
         GuestServiceImpl guestService = new GuestServiceImpl();

@@ -9,7 +9,7 @@ public class ResourceManager {
     private ResourceManager(){}
     public static ResourceManager getInstance(){
         return instance;
-    };
+    }
     private List<Guest> guestList = new ArrayList<>();
     public List<Guest> getGuestList() {
         return guestList;
