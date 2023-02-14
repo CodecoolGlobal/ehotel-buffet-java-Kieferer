@@ -1,7 +1,6 @@
 package com.codecool.ehotel;
 
 import com.codecool.ehotel.model.Buffet;
-import com.codecool.ehotel.model.Meal;
 import com.codecool.ehotel.model.MealType;
 import com.codecool.ehotel.service.buffet.buffetRefill;
 import com.codecool.ehotel.service.buffet.consumeFreshest;
@@ -22,9 +21,7 @@ public class EHotelBuffetApplication {
         consumeFreshest consumeFreshest = new consumeFreshest();
         buffetRefill.refill(buffet);
         consumeFreshest.consumeFreshest(buffet, MealType.BUN);
-        buffet.meals().get(0).timestamp().add(0);
-        consumeFreshest.consumeFreshest(buffet, MealType.BUN);
-        consumeFreshest.consumeFreshest(buffet, MealType.BUN);
+        buffet.meals().get(0).timestamp().add(0);;
         System.out.println(buffet.meals().get(0));
         for (int meal:buffet.meals().get(0).timestamp()) {
             System.out.println(meal);
