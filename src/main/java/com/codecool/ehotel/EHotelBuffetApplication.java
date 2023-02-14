@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 
 public class EHotelBuffetApplication {
+    //Hello
 
     public static void main(String[] args) throws FileNotFoundException {
         // Initialize services
