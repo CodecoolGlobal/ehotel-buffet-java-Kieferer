@@ -1,6 +1,8 @@
 package com.codecool.ehotel.logic;
 
 import com.codecool.ehotel.model.Guest;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +12,19 @@ public class ResourceManager {
     public static ResourceManager getInstance(){
         return instance;
     };
-    private List<Guest> guestList = new ArrayList<>();
+    private LocalDate simulationDate, simulationEndDate;
+    private final List<Guest> guestList = new ArrayList<>();
     public List<Guest> getGuestList() {
         return guestList;
+    }
+    public LocalDate getSimulationDate(){ return simulationDate; }
+    public LocalDate getSimulationEndDate(){ return simulationEndDate; }
+    public void setSimulationInterval(LocalDate startDate, LocalDate endDate){
+        simulationDate = startDate;
+        simulationEndDate = endDate;
+    }
+    public void tickSimulationDate(){
+        simulationDate = simulationDate.plusDays(1);
     }
     public void addGuestToList(Guest guest){
         guestList.add(guest);

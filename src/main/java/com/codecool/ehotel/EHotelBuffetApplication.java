@@ -11,17 +11,26 @@ import java.time.LocalDate;
 public class EHotelBuffetApplication {
 
     public static void main(String[] args) throws FileNotFoundException {
+        //TEST: Create guests and store in list, ticking the simulation date
+        //and load the guests that are available on the current day and remove
+        //them from the list/hotel if the simulation date is beyond their last day.
 
         // Initialize services
         GuestService guestService = new GuestServiceImpl();
+        ResourceManager.getInstance().setSimulationInterval(
+                LocalDate.of(2023, 10, 1),
+                LocalDate.of(2023, 10, 10));
         // Generate guests for the season
         for (int i = 0; i < 100; i++){
-            ResourceManager.getInstance().addGuestToList(guestService.generateRandomGuest(LocalDate.of(2023, 10, 1), LocalDate.of(2023, 10, 10)));
+            ResourceManager.getInstance().addGuestToList(guestService.generateRandomGuest());
         }
         // Run breakfast buffet
-        for (Guest guest : ResourceManager.getInstance().getGuestList()) {
-            System.out.println(guest.name());
+        for (int i = 0; i < 10; i++){
+            System.out.println("The simulationDate is ticked a day, current date is: " + ResourceManager.getInstance().getSimulationDate());
+            ResourceManager.getInstance().tickSimulationDate();
+            for (Guest guest : guestService.getGuestsForDay()){
+                System.out.println("* - " + guest.name() + " guest has " + guest.getRemainingDays() + " remaining days.");
+            }
         }
-
     }
 }

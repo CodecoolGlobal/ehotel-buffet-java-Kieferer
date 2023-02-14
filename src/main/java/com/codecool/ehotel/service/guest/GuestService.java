@@ -9,8 +9,8 @@ import java.util.Set;
 
 public interface GuestService {
 
-    Guest generateRandomGuest(LocalDate seasonStart, LocalDate seasonEnd) throws FileNotFoundException;
+    Guest generateRandomGuest() throws FileNotFoundException;
 
-    Set<Guest> getGuestsForDay(List<Guest> guests, LocalDate date);
+    Set<Guest> getGuestsForDay();
 
 }
