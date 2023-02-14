@@ -2,6 +2,7 @@ package com.codecool.ehotel;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
 import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.service.guest.GuestServiceImpl;
 
