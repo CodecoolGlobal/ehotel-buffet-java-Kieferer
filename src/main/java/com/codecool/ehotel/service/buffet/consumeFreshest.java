@@ -34,9 +34,7 @@ public class consumeFreshest implements BuffetService {
     }
     public void decreaseFreshness(Buffet buffet){
         for (Meal meal: buffet.meals()) {
-            for (int i = 0; i < meal.timestamp().size();i++) {
-                meal.timestamp().set(i,meal.timestamp().get(i)+1);
-            }
+            meal.timestamp().replaceAll(integer -> integer + 1);
         }
     }
 
