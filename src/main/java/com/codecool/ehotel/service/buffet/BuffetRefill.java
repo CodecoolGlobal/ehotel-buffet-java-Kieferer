@@ -1,3 +1,4 @@
+
 package com.codecool.ehotel.service.buffet;
 
 import com.codecool.ehotel.model.Buffet;

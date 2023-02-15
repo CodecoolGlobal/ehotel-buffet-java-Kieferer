@@ -1,6 +1,7 @@
 package com.codecool.ehotel.service.guest;
 
 import com.codecool.ehotel.logic.ResourceManager;
+import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.Guest;
 import com.codecool.ehotel.model.GuestType;
 import com.codecool.ehotel.utils.JSONReader;
@@ -32,15 +33,14 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
-    public Set<Guest> getGuestsForDay() {
+    public Set<Guest> getGuestsForDay(Buffet buffet) {
         int simulatedDayOfMonth = ResourceManager.getInstance().getSimulationDate().getDayOfMonth();
         //We should check and remove a guest from the list, if the current simulation date is further than its checkout date.
-        ResourceManager.getInstance().getGuestList().removeIf(guest ->
+        buffet.getGuestList().removeIf(guest ->
                 (guest.getRemainingDays() < 0));
         //Now we have the whole list of currently available guests, but have to filter to those whose reservation starting date
         //is the same as current date, or we are already beyond.
-        System.out.println("available: " + ResourceManager.getInstance().getGuestList().size());
-        return ResourceManager.getInstance().getGuestList().stream().filter(guest ->
+        return buffet.getGuestList().stream().filter(guest ->
                 guest.checkIn().getDayOfMonth() <= simulatedDayOfMonth).collect(Collectors.toSet());
     }
 }

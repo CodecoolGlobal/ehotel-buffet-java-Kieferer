@@ -1,70 +1,119 @@
 package com.codecool.ehotel.service.buffet;
 
-import com.codecool.ehotel.model.Buffet;
-import com.codecool.ehotel.model.Meal;
-import com.codecool.ehotel.model.MealType;
+import com.codecool.ehotel.logic.ResourceManager;
+import com.codecool.ehotel.model.*;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class BuffetServiceImpl implements BuffetService {
-
-
-    public int consumeFreshest(Buffet currentBuffet, MealType meal) {
-        orderByFreshness(currentBuffet);
-        for (Meal currentBuffetMeal : currentBuffet.meals()) {
-            if (currentBuffetMeal.mealType().equals(meal) && currentBuffetMeal.timestamp().size() > 0) {
-                currentBuffetMeal.timestamp().remove(0);
-                //System.out.println("One piece of: " + currentBuffetMeal.mealType() + " has been consumed.");
+    private Buffet buffet;
+    public BuffetServiceImpl(Buffet buffet){
+        this.buffet = buffet;
+    }
+    public int consumeFreshest(MealType preferredMeal) {
+        orderByFreshness();
+        boolean talalt = false;
+        for (Meal meal : buffet.getMealList()) {
+            /*if (meal.getMealType().getDurability() != MealDurability.LONG)
+                System.out.println(meal.getMealType() + " [" + meal.getTimestamp() + "]");*/
+            if (meal.getMealType() == preferredMeal){
+                talalt = true;
+                buffet.removeFromMealList(meal);
                 return 0;
             }
-            else if (currentBuffetMeal.mealType().equals(meal)) {
-                //System.out.println("There is no more " + currentBuffetMeal.mealType() + " has been consumed.");
-                return 1;
-            }
         }
+        System.out.println("Preferalt etel: " + preferredMeal + " talalt: " + talalt);
         return 1;
     }
-    public void orderByFreshness(Buffet buffet){
-        for (Meal meal: buffet.meals()) {
-            Collections.sort(meal.timestamp());
-        }
+    public void orderByFreshness(){
+        Collections.sort(buffet.getMealList());
     }
     public void decreaseFreshness(Buffet buffet){
-        for (Meal meal: buffet.meals()) {
-            meal.timestamp().replaceAll(integer -> integer + 1);
+        for (Meal meal: buffet.getMealList()) {
+            meal.tickTimestamp();
         }
     }
-
     @Override
-    public int collectWaste(Buffet buffet) {
+    public int collectWaste() {
         int collectiveWastedMoney = 0;
-        for (Meal meal : buffet.meals()) {
-            switch (meal.mealType().getDurability()) {
+        List<Meal> expiredMeal = new ArrayList<>();
+        for (Meal currentMeal : buffet.getMealList()) {
+            switch (currentMeal.getMealType().getDurability()) {
                 case SHORT -> {
-                    List<Integer> waste = meal.timestamp().stream().filter(c -> c > 2).toList();
-                    collectiveWastedMoney += waste.size() * meal.mealType().getCost();
-                    meal.timestamp().removeAll(waste);
+                    if (currentMeal.getTimestamp() > 3) {
+                        collectiveWastedMoney += currentMeal.getMealType().getCost();
+                        expiredMeal.add(currentMeal);
+
+                    }
                 }
                 case MEDIUM -> {
-                    List<Integer> waste = meal.timestamp().stream().filter(c -> c > 5).toList();
-                    collectiveWastedMoney += waste.size() * meal.mealType().getCost();
-                    meal.timestamp().removeAll(waste);
-                }
-                case LONG -> {
-                    List<Integer> waste = meal.timestamp().stream().filter(c -> c > 10).toList();
-                    collectiveWastedMoney += waste.size() * meal.mealType().getCost();
-                    meal.timestamp().removeAll(waste);
+                    if (currentMeal.getTimestamp() > 6) {
+                        collectiveWastedMoney += currentMeal.getMealType().getCost();
+                        expiredMeal.add(currentMeal);
+                    }
                 }
             }
-
         }
+        buffet.removeAllFromMealList(expiredMeal);
         return collectiveWastedMoney;
     }
-
     @Override
-    public void refill(Buffet buffet) {
+    public void refill(List<Guest> guests, Buffet buffet) {
+        HashMap<GuestType, Integer> amountOfSpecificGuests = new HashMap<>();
+        HashMap<MealType, Integer> amountOfSpecificMeal = new HashMap<>();
+
+        HashMap<MealType, Integer> amountOfDesiredMeal = new HashMap<>();
+        // Iterate through guests and note how many specific type found
+        for (Guest guest : guests){
+            if (amountOfSpecificGuests.containsKey(guest.guestType())){
+                amountOfSpecificGuests.merge(guest.guestType(), 1, Integer::sum);
+            } else {
+                amountOfSpecificGuests.put(guest.guestType(), 1);
+            }
+        }
+        // Load every possible meals from MealTypes enum
+        for (MealType meal : MealType.values()){
+            amountOfSpecificMeal.put(meal, 0);
+        }
+        // Iterate through meal and note how many specific type found
+        for (Meal meal : buffet.getMealList()){
+            if (amountOfSpecificMeal.containsKey(meal.getMealType())) {
+                amountOfSpecificMeal.merge(meal.getMealType(), 1, Integer::sum);
+            }
+        }
+        // Calculate how many need from each specific meal
+        for (GuestType guestType : GuestType.values()) {
+            //Fill
+            for (MealType mealType : guestType.getMealPreferences()) {
+                if (amountOfDesiredMeal.containsKey(mealType)){
+                    amountOfDesiredMeal.merge(mealType, 1, Integer::sum);
+                } else {
+                    amountOfDesiredMeal.put(mealType, 1);
+                }
+            }
+            //Subtract found meals from desired meals
+            for (MealType mealType : guestType.getMealPreferences()) {
+                if (amountOfDesiredMeal.containsKey(mealType)){
+                    amountOfDesiredMeal.merge(mealType, -amountOfSpecificMeal.get(mealType), Integer::sum);
+                }
+            }
+        }
+        for (MealType mealType : amountOfDesiredMeal.keySet()) {
+            buffet.getMealList().add(new Meal(mealType, 0));
+        }
     }
-
-
+    public List<Meal> fill() {
+        List<Meal> mealList = new ArrayList<>();
+        mealList.add(new Meal(MealType.BUN, 0));
+        mealList.add(new Meal(MealType.CEREAL, 0));
+        mealList.add(new Meal(MealType.CROISSANT,0));
+        mealList.add(new Meal(MealType.MILK,0));
+        mealList.add(new Meal(MealType.FRIED_BACON,0));
+        mealList.add(new Meal(MealType.MASHED_POTATO ,0));
+        mealList.add(new Meal(MealType.MUFFIN, 0));
+        mealList.add(new Meal(MealType.PANCAKE,0));
+        mealList.add(new Meal(MealType.SCRAMBLED_EGGS, 0));
+        mealList.add(new Meal(MealType.SUNNY_SIDE_UP, 0));
+        return mealList;
+    }
 }
