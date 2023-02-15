@@ -15,6 +15,7 @@ public class DinnerManager {
                         Stores ingredients needed for creating a meal,
                         Keep track of the consumed ingredients when preparing meal.
                         The ingredients must have date of expiry.
+
                         Strategy for buying ingredients-
                                     based on actual stock
                                     general preference statistics and expected future customer numbers
