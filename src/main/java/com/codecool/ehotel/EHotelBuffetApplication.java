@@ -37,7 +37,7 @@ public class EHotelBuffetApplication {
             ResourceManager.getInstance().tickSimulationDate();
 
         }
-        breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(ResourceManager.getInstance().getGuestList()),buffet);
+        breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(guestService.getGuestsForDay()),buffet);
         System.out.println("Wasted food: $" + buffetService.collectWaste(buffet));
 
 

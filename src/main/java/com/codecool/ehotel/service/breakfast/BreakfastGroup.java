@@ -9,7 +9,7 @@ import java.util.*;
 public class BreakfastGroup{
     private final Random random = new Random();
 
-    public List<Group> prepareBreakfastGroups(List<Guest> guests) {
+    public List<Group> prepareBreakfastGroups(Set<Guest> guests) {
         List<Guest> guestsToAssign = new LinkedList<>(guests);
         List<Group> groups = new LinkedList();
 
