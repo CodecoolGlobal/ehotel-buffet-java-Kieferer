@@ -1,27 +1,29 @@
 package com.codecool.ehotel.model;
 
-import static com.codecool.ehotel.model.MealDurability.*;
 import static com.codecool.ehotel.model.MealDurability.LONG;
+import static com.codecool.ehotel.model.MealDurability.SHORT;
 
 public enum IngredientType {
-    SCRAMBLED_EGGS (70, SHORT),
-    SUNNY_SIDE_UP (70, SHORT),
-    FRIED_SAUSAGE(100, SHORT),
-    FRIED_BACON(70, SHORT),
-    PANCAKE(40, SHORT),
-    CROISSANT(40, SHORT),
-    MASHED_POTATO(20, MEDIUM),
-    MUFFIN(20, MEDIUM),
-    BUN(10, MEDIUM),
-    CEREAL(30, LONG),
+    EGGS(5, SHORT),
+    SAUSAGE(15, SHORT),
+    BACON(15, SHORT),
+    YEAST(5, SHORT),
+    FLOUR(10, SHORT),
+    SUGAR(10, LONG),
+    CHOCOLATE(20, SHORT),
+    SALT(5, LONG),
     MILK(10, LONG);
 
     private int cost;
     private MealDurability mealDurability;
 
+
+    private int freshness;
+
     IngredientType(int cost, MealDurability mealDurability) {
         this.cost = cost;
         this.mealDurability = mealDurability;
+        this.freshness = 0;
     }
 
     public int getCost() {
@@ -30,6 +32,14 @@ public enum IngredientType {
 
     public MealDurability getDurability() {
         return mealDurability;
+    }
+
+    public int getFreshness() {
+        return freshness;
+    }
+
+    public void setFreshness(int freshness) {
+        this.freshness = freshness;
     }
 
 
