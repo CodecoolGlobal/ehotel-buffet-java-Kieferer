@@ -19,6 +19,9 @@ public class BuffetRefill implements BuffetService{
 
     @Override
     public void refill(Buffet buffet) {
+             /*TODO: The refill takes the current guest group preferences
+                and refills the buffet with the preferred meals if that have an amount less than X.
+       */
         for (Meal meal: buffet.meals()) {
             if(meal.timestamp().size()<1){
                 meal.timestamp().add(0);
