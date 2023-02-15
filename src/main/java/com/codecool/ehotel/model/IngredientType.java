@@ -15,10 +15,8 @@ public enum IngredientType {
     CEREAL(7,MEDIUM),
     MILK(10, LONG);
 
-    private int cost;
-    private MealDurability mealDurability;
-
-
+    private final int cost;
+    private final MealDurability mealDurability;
     private int freshness;
 
     IngredientType(int cost, MealDurability mealDurability) {
@@ -39,8 +37,8 @@ public enum IngredientType {
         return freshness;
     }
 
-    public void setFreshness(int freshness) {
-        this.freshness = freshness;
+    public void setFreshness() {
+        this.freshness++;
     }
 
 
