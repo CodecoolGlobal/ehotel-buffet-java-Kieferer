@@ -27,8 +27,7 @@ public enum MealType {
         this.mealDurability = mealDurability;
         this.ingredients = ingredients;
     }
-
-
+public List<IngredientType> getIngredients(){return ingredients;}
     public int getCost() {
         return cost;
     }

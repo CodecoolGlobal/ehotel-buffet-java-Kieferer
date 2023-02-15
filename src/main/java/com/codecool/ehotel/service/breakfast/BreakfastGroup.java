@@ -40,7 +40,6 @@ public class BreakfastGroup{
             Guest guest = guestsToAssing.remove(randomNumber);
             guestsToSplitIntoGroups.add(guest);
         }
-        System.out.println("Left to appear" + guestsToAssing.size());
 
         return guestsToSplitIntoGroups;
     }
