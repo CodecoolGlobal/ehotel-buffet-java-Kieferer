@@ -15,8 +15,7 @@ public class BreakfastManager {
     private final Random random = new Random();
     BuffetRefill buffetRefill = new BuffetRefill();
     BuffetServiceImpl buffetService = new BuffetServiceImpl();
-    public void serve(List<Group>guestGroups){
-        Buffet buffet = ResourceManager.getInstance().getBuffet();
+    public void serve(List<Group>guestGroups, Buffet buffet){
         List<MealType> currentGuestPreference;
         int unhappyGuests = 0;
         int costOfWastedFood = 0;
@@ -34,7 +33,6 @@ public class BreakfastManager {
             }
             buffetService.decreaseFreshness(buffet);
             costOfWastedFood += buffetService.collectWaste(buffet);
-
         }
         buffetService.decreaseFreshness(buffet);
         costOfWastedFood += buffetService.collectWaste(buffet);

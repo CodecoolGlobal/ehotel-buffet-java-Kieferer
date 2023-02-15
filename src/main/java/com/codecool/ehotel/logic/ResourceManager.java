@@ -18,10 +18,6 @@ public class ResourceManager {
     public List<Guest> getGuestList() {
         return guestList;
     }
-    private final Buffet buffet = new Buffet(new ArrayList<>());
-    public Buffet getBuffet() {
-        return buffet;
-    }
 
     public LocalDate getSimulationDate(){ return simulationDate; }
     public LocalDate getSimulationEndDate(){ return simulationEndDate; }

@@ -12,6 +12,7 @@ import com.codecool.ehotel.service.guest.GuestServiceImpl;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EHotelBuffetApplication {
 
@@ -20,10 +21,9 @@ public class EHotelBuffetApplication {
         GuestService guestService = new GuestServiceImpl();
         BuffetService buffetService = new BuffetServiceImpl();
         BuffetRefill buffetManager = new BuffetRefill();
-        Buffet buffet = new Buffet(buffetManager.fill());
+        Buffet buffet = new Buffet(new ArrayList<>());
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         BreakfastManager breakfastManager = new BreakfastManager();
-        ResourceManager.getInstance().getBuffet();
 
         ResourceManager.getInstance().setSimulationInterval(
                 LocalDate.of(2023, 10, 1),
@@ -37,7 +37,7 @@ public class EHotelBuffetApplication {
             ResourceManager.getInstance().tickSimulationDate();
 
         }
-        breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(ResourceManager.getInstance().getGuestList()));
+        breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(ResourceManager.getInstance().getGuestList()),buffet);
         System.out.println("Wasted food: $" + buffetService.collectWaste(buffet));
 
 
