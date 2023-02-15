@@ -39,7 +39,6 @@ public class GuestServiceImpl implements GuestService {
                 (guest.getRemainingDays() < 0));
         //Now we have the whole list of currently available guests, but have to filter to those whose reservation starting date
         //is the same as current date, or we are already beyond.
-        System.out.println("available: " + ResourceManager.getInstance().getGuestList().size());
         return ResourceManager.getInstance().getGuestList().stream().filter(guest ->
                 guest.checkIn().getDayOfMonth() <= simulatedDayOfMonth).collect(Collectors.toSet());
     }

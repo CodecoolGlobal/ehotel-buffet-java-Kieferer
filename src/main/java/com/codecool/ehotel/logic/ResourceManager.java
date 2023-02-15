@@ -35,5 +35,9 @@ public class ResourceManager {
     public void addGuestToList(Guest guest){
         guestList.add(guest);
     }
+    public Integer maxNumberOfGuests() {
+        int averageGuestPerDay = 5;
+        return averageGuestPerDay * getLengthOfCycle();
+    }
 
 }

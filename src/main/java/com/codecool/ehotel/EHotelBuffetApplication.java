@@ -20,27 +20,24 @@ public class EHotelBuffetApplication {
     public static void main(String[] args) throws FileNotFoundException {
         // Initialize services
         GuestService guestService = new GuestServiceImpl();
-        BuffetService buffetService = new BuffetServiceImpl();
-        BuffetRefill buffetManager = new BuffetRefill();
         Buffet buffet = new Buffet(new ArrayList<>());
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         BreakfastManager breakfastManager = new BreakfastManager();
-
-        ResourceManager.getInstance().setSimulationInterval(
+        ResourceManager globalResource = ResourceManager.getInstance();
+        // Set length of season
+        int lengthOfSeason = 10;
+        globalResource.setSimulationInterval(
                 LocalDate.of(2023, 10, 1),
-                LocalDate.of(2023, 10, 10));
+                LocalDate.of(2023, 10, 1).plusDays(lengthOfSeason));
         // Generate guests for the season
-        for (int i = 0; i < 100; i++) {
-            ResourceManager.getInstance().addGuestToList(guestService.generateRandomGuest());
+        for (int i = 0; i < globalResource.maxNumberOfGuests(); i++) {
+            globalResource.addGuestToList(guestService.generateRandomGuest());
         }
         // Run breakfast buffet
-        for (int i = 0; i < ResourceManager.getInstance().getLengthOfCycle(); i++){
-            ResourceManager.getInstance().tickSimulationDate();
-
+        for (int i = 0; i < globalResource.getLengthOfCycle(); i++) {
+            // Serve breakfast and print out metrics
+            breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(guestService.getGuestsForDay()), buffet);
+            globalResource.tickSimulationDate();
         }
-        breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(guestService.getGuestsForDay()),buffet);
-        System.out.println("Wasted food: $" + buffetService.collectWaste(buffet));
-
-
     }
 }
