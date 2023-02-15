@@ -35,7 +35,7 @@ public class EHotelBuffetApplication {
         // Run breakfast buffet
         for (int i = 0; i < globalResource.getLengthOfCycle(); i++) {
             // Serve breakfast and print out metrics
-            breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(guestService.getGuestsForDay()), buffet);
+            breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(guestService.getGuestsForDay(buffet)), buffet);
             globalResource.tickSimulationDate();
         }
     }

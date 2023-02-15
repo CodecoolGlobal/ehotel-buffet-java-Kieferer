@@ -29,11 +29,10 @@ public class BuffetServiceImpl implements BuffetService {
         }
     }
     @Override
-    public int collectWaste(Buffet buffet) {
+    public int collectWaste() {
         int collectiveWastedMoney = 0;
         List<Meal> expiredMeal = new ArrayList<>();
         for (Meal currentMeal : buffet.getMealList()) {
-            System.out.println(currentMeal.getMealType());
             switch (currentMeal.getMealType().getDurability()) {
                 case SHORT -> {
                     if (currentMeal.getTimestamp() > 3) {
