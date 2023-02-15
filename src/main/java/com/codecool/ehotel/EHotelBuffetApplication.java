@@ -4,8 +4,6 @@ import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.service.breakfast.BreakfastGroup;
 import com.codecool.ehotel.service.breakfast.BreakfastManager;
-import com.codecool.ehotel.service.buffet.BuffetRefill;
-import com.codecool.ehotel.service.buffet.BuffetService;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
 import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.service.guest.GuestServiceImpl;
@@ -19,10 +17,11 @@ public class EHotelBuffetApplication {
 
     public static void main(String[] args) throws FileNotFoundException {
         // Initialize services
+        Buffet buffet = new Buffet();
         GuestService guestService = new GuestServiceImpl();
-        Buffet buffet = new Buffet(new ArrayList<>());
+        BuffetServiceImpl buffetService = new BuffetServiceImpl(buffet);
         BreakfastGroup breakfastGroup = new BreakfastGroup();
-        BreakfastManager breakfastManager = new BreakfastManager();
+        BreakfastManager breakfastManager = new BreakfastManager(buffetService);
         ResourceManager globalResource = ResourceManager.getInstance();
         // Set length of season
         int lengthOfSeason = 10;
@@ -31,7 +30,7 @@ public class EHotelBuffetApplication {
                 LocalDate.of(2023, 10, 1).plusDays(lengthOfSeason));
         // Generate guests for the season
         for (int i = 0; i < globalResource.maxNumberOfGuests(); i++) {
-            globalResource.addGuestToList(guestService.generateRandomGuest());
+            buffet.addGuestToList(guestService.generateRandomGuest());
         }
         // Run breakfast buffet
         for (int i = 0; i < globalResource.getLengthOfCycle(); i++) {

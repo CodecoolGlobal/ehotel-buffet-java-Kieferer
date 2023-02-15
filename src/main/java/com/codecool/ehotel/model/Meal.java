@@ -1,6 +1,29 @@
 package com.codecool.ehotel.model;
 
-import java.util.List;
+public class Meal implements Comparable {
+    private MealType mealType;
+    private int timestamp;
+    public MealType getMealType() {
+        return mealType;
+    }
 
-public record Meal(MealType mealType, List<Integer> timestamp) {
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void tickTimestamp() {
+        this.timestamp++;
+    }
+    public Meal(MealType mealType, int timestamp){
+        this.mealType = mealType;
+        this.timestamp = timestamp;
+    }
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }
