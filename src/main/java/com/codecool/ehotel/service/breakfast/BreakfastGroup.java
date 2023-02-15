@@ -11,7 +11,7 @@ public class BreakfastGroup{
 
     public List<Group> prepareBreakfastGroups(Set<Guest> guests) {
         List<Guest> guestsToAssign = new LinkedList<>(guests);
-        List<Group> groups = new LinkedList();
+        List<Group> groups = new LinkedList<>();
 
         for (double time = 6.0; time < 10; time += 0.5) {
             if(guestsToAssign.size() == 0) {
@@ -34,14 +34,11 @@ public class BreakfastGroup{
 
     public List<Guest> fillCurrentGroup(int currentGroupSize, List<Guest> guestsToAssing) {
         List<Guest> guestsToSplitIntoGroups = new ArrayList<>(currentGroupSize);
-
         for (int i = 0; i < currentGroupSize; i++) {
             int randomNumber = random.nextInt(0, guestsToAssing.size());
             Guest guest = guestsToAssing.remove(randomNumber);
             guestsToSplitIntoGroups.add(guest);
         }
-        System.out.println("Left to appear" + guestsToAssing.size());
-
         return guestsToSplitIntoGroups;
     }
 }

@@ -23,8 +23,9 @@ public class EHotelBuffetApplication {
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         BreakfastManager breakfastManager = new BreakfastManager(buffetService);
         ResourceManager globalResource = ResourceManager.getInstance();
+        buffet.getMealList().addAll(buffetService.fill());
         // Set length of season
-        int lengthOfSeason = 10;
+        int lengthOfSeason = 4;
         globalResource.setSimulationInterval(
                 LocalDate.of(2023, 10, 1),
                 LocalDate.of(2023, 10, 1).plusDays(lengthOfSeason));

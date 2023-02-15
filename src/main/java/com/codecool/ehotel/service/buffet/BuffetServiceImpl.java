@@ -12,12 +12,17 @@ public class BuffetServiceImpl implements BuffetService {
     }
     public int consumeFreshest(MealType preferredMeal) {
         orderByFreshness();
+        boolean talalt = false;
         for (Meal meal : buffet.getMealList()) {
-            if (meal.equals(preferredMeal)){
+            /*if (meal.getMealType().getDurability() != MealDurability.LONG)
+                System.out.println(meal.getMealType() + " [" + meal.getTimestamp() + "]");*/
+            if (meal.getMealType() == preferredMeal){
+                talalt = true;
                 buffet.removeFromMealList(meal);
                 return 0;
             }
         }
+        System.out.println("Preferalt etel: " + preferredMeal + " talalt: " + talalt);
         return 1;
     }
     public void orderByFreshness(){
@@ -54,7 +59,6 @@ public class BuffetServiceImpl implements BuffetService {
     }
     @Override
     public void refill(List<Guest> guests, Buffet buffet) {
-        System.out.println("Guests in buffet: " + guests.size());
         HashMap<GuestType, Integer> amountOfSpecificGuests = new HashMap<>();
         HashMap<MealType, Integer> amountOfSpecificMeal = new HashMap<>();
 
@@ -95,7 +99,7 @@ public class BuffetServiceImpl implements BuffetService {
             }
         }
         for (MealType mealType : amountOfDesiredMeal.keySet()) {
-            buffet.getMealList().set(buffet.getMealList().size() - 1, new Meal(mealType, 0));
+            buffet.getMealList().add(new Meal(mealType, 0));
         }
     }
     public List<Meal> fill() {
