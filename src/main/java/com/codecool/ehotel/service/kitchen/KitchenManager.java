@@ -15,7 +15,17 @@ public class KitchenManager{
     public void refillKitchen(Kitchen kitchen, List<Group> guestGroups, String statistic) {
 
     }
-    public void createMeal() {
+    public void createMeal(MealType meal) {
+        for (IngredientType ingredient: meal.getIngredients()
+             ) {
+            if(!kitchen.getAvailableIngredients().contains(ingredient)){
+                return;
+            }
+        }
+        kitchen.addAllToConsumedIngredients(meal.getIngredients());
+        //TODO calculation for freshness.
+
+
 
     }
     public void orderByFreshness(Kitchen kitchen){

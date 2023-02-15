@@ -1,6 +1,8 @@
 package com.codecool.ehotel.service.dinner;
 
 import com.codecool.ehotel.model.MealType;
+import com.codecool.ehotel.service.guest.GuestService;
+import com.codecool.ehotel.service.guest.GuestServiceImpl;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class DinnerManager {
 
    */
     List<MealType> menu = List.of(MealType.CEREAL, MealType.MILK, MealType.PANCAKE, MealType.FRIED_SAUSAGE, MealType.BUN, MealType.CROISSANT, MealType.FRIED_BACON, MealType.MASHED_POTATO, MealType.SCRAMBLED_EGGS);
+    GuestService guestService = new GuestServiceImpl();
 
  /*
 
