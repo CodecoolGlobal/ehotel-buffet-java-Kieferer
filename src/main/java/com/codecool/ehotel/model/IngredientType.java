@@ -1,7 +1,6 @@
 package com.codecool.ehotel.model;
 
-import static com.codecool.ehotel.model.MealDurability.LONG;
-import static com.codecool.ehotel.model.MealDurability.SHORT;
+import static com.codecool.ehotel.model.MealDurability.*;
 
 public enum IngredientType {
     EGGS(5, SHORT),
@@ -12,6 +11,8 @@ public enum IngredientType {
     SUGAR(10, LONG),
     CHOCOLATE(20, SHORT),
     SALT(5, LONG),
+    POTATO(10,LONG),
+    CEREAL(7,MEDIUM),
     MILK(10, LONG);
 
     private int cost;

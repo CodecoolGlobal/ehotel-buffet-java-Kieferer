@@ -5,6 +5,7 @@ public class DinnerManager {
  /* TODO: -> Menu with statistics how much menu items are preferred by guests.
              Individual preference list of the menu items generated upon the preference statistics.
 
+
     TODO: -> Get the expected guests to appear(daily) as input-
             Guests have preference list - guests get happier if they can choose the top of their preferences from the menu
             The preferences must mirror the global statistics. Customer should tend to pick popular items higher in their lists.
