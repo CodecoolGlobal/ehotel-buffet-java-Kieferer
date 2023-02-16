@@ -48,6 +48,5 @@ public class EHotelBuffetApplication {
             dinnerManager.serve(guestService.getGuestsForDay(buffet), buffet);
             globalResource.tickSimulationDate();
         }
-        buffet.getGuestList().get(0).sortPreferredMeals();
     }
 }

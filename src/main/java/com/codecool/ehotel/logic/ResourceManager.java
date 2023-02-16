@@ -14,7 +14,7 @@ public class ResourceManager {
         return instance;
     }
     private LocalDate simulationStartDate, simulationEndDate, simulationDate;
-    private HashMap<MealType, Integer> mostConsumedMeals = new HashMap<>();
+    private final HashMap<MealType, Integer> mostConsumedMeals = new HashMap<>();
     public LocalDate getSimulationDate(){ return simulationDate; }
     public LocalDate getSimulationEndDate(){ return simulationEndDate; }
     public HashMap<MealType, Integer> getMostConsumedMeals(){

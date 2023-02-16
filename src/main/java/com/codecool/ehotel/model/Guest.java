@@ -3,17 +3,15 @@ package com.codecool.ehotel.model;
 import com.codecool.ehotel.logic.ResourceManager;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Guest {
     private String name;
     private GuestType guestType;
     private LocalDate checkIn, checkOut;
-    private SortedSet preferredMeals = new TreeSet();
+    private final SortedSet<MealType> preferredMeals = new TreeSet<>();
 
-    public SortedSet getPreferredMeals() {
+    public SortedSet<MealType> getPreferredMeals() {
         return preferredMeals;
     }
     public Guest(String name, GuestType guestType, LocalDate checkIn, LocalDate checkOut){
@@ -24,23 +22,13 @@ public class Guest {
     }
 
     public void sortPreferredMeals() {
-
         HashMap<MealType,Integer> meals = ResourceManager.getInstance().getMostConsumedMeals();
         var mealList = new ArrayList<>(meals.entrySet());
         mealList.sort((currMeal, mealAfterCurrMeal) -> mealAfterCurrMeal.getValue() - currMeal.getValue());
-
-
-
-        /*
-
-    Get all entries by calling entrySet() method of Map
-    Create a custom Comparator to sort entries based upon values
-    Convert entry set to list
-    Sort entry list by using Collections.sort() method by passing your value comparator
-    Create a LinkedHashMap by adding entries in sorted order.
-
-         */
-
+        for (var meal : mealList){
+            if (guestType.getMealPreferences().contains(meal.getKey()))
+                preferredMeals.add(meal.getKey());
+        }
     }
 
     public String getName() {

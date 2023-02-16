@@ -6,7 +6,7 @@ import com.codecool.ehotel.model.*;
 import java.util.*;
 
 public class BuffetServiceImpl implements BuffetService {
-    private Buffet buffet;
+    private final Buffet buffet;
     public BuffetServiceImpl(Buffet buffet){
         this.buffet = buffet;
     }
@@ -25,18 +25,15 @@ public class BuffetServiceImpl implements BuffetService {
         return 1;
     }
     public int dinnerConsumeFreshest(List<MealType> preferredMeal) {
-
-
         for (Meal meal : buffet.getMealList()) {
-            for (int i = 0; i<preferredMeal.size(); i++){
+            for (int i = 0; i < preferredMeal.size(); i++){
                 if (preferredMeal.get(i).getIngredients().equals( meal.getMealType().getIngredients())){
                     buffet.removeFromMealList(meal);
-                    return 3-i;
+                    return 3 - i;
                 }
             }
-            }
-            return 0;
-
+        }
+        return 0;
     }
     public void orderByFreshness(){
         Collections.sort(buffet.getMealList());
