@@ -2,6 +2,7 @@ package com.codecool.ehotel.service.buffet;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.*;
+import com.codecool.ehotel.service.kitchen.KitchenManager;
 
 import java.util.*;
 
@@ -24,13 +25,12 @@ public class BuffetServiceImpl implements BuffetService {
         System.out.println("Preferred meal was " + preferredMeal + ", isFound: [" + isFound + "]");
         return 1;
     }
-    public int dinnerConsumeFreshest(List<MealType> preferredMeal) {
+    public int dinnerConsumeFreshest(List<MealType> preferredMeal, KitchenManager kitchenManager) {
         for (Meal meal : buffet.getMealList()) {
-            for (int i = 0; i < preferredMeal.size(); i++){
-                if (preferredMeal.get(i).getIngredients().equals( meal.getMealType().getIngredients())){
-
+            for (MealType preferredMealType : preferredMeal) {
+                if (meal.getMealType() == preferredMealType) {
                     buffet.removeFromMealList(meal);
-                    return 3 - i;
+                    return (preferredMeal.size() - preferredMeal.indexOf(preferredMealType)) - kitchenManager.createMeal(meal.getMealType());
                 }
             }
         }
