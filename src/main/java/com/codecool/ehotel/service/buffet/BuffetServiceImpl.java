@@ -23,6 +23,20 @@ public class BuffetServiceImpl implements BuffetService {
         System.out.println("Preferred meal was " + preferredMeal + ", isFound: [" + isFound + "]");
         return 1;
     }
+    public int dinnerConsumeFreshest(List<MealType> preferredMeal) {
+
+
+        for (Meal meal : buffet.getMealList()) {
+            for (int i = 0; i<preferredMeal.size(); i++){
+                if (preferredMeal.get(i).getIngredients().equals( meal.getMealType().getIngredients())){
+                    buffet.removeFromMealList(meal);
+                    return 3-i;
+                }
+            }
+            }
+            return 0;
+
+    }
     public void orderByFreshness(){
         Collections.sort(buffet.getMealList());
     }

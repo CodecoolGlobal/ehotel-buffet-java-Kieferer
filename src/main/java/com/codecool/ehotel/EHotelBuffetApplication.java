@@ -5,6 +5,7 @@ import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.service.breakfast.BreakfastGroup;
 import com.codecool.ehotel.service.breakfast.BreakfastManager;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
+import com.codecool.ehotel.service.dinner.DinnerManager;
 import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.service.guest.GuestServiceImpl;
 
@@ -23,6 +24,7 @@ public class EHotelBuffetApplication {
         BuffetServiceImpl buffetService = new BuffetServiceImpl(buffet);
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         BreakfastManager breakfastManager = new BreakfastManager(buffetService);
+        DinnerManager dinnerManager = new DinnerManager(buffetService);
         ResourceManager globalResource = ResourceManager.getInstance();
         Scanner scanner = new Scanner(System.in);
         int lengthOfSeason = 0;
@@ -42,6 +44,7 @@ public class EHotelBuffetApplication {
         for (int i = 0; i < globalResource.getLengthOfCycle(); i++) {
             // Serve breakfast and print out metrics
             breakfastManager.serve(breakfastGroup.prepareBreakfastGroups(guestService.getGuestsForDay(buffet)), buffet);
+            dinnerManager.serve(guestService.getGuestsForDay(buffet), buffet);
             globalResource.tickSimulationDate();
         }
     }
