@@ -39,6 +39,7 @@ public class BreakfastManager {
         // End of day and print out metrics
         System.out.println("During breakfast there were " + unhappyGuests + " unhappy guest from " + buffet.getGuestList().size() + ".");
         System.out.println("After breakfast there were $" + costOfWastedFood + " of wasted food.");
+        System.out.println("Ratio: " + ((30 * unhappyGuests) + (costOfWastedFood / 10)) + "\n");
     }
 
 }
