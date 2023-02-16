@@ -59,15 +59,15 @@ public class BuffetServiceImpl implements BuffetService {
         }
         return 0;
     }
-    public void decreaseIngredientFreshness(Kitchen kitchen) {
+    public void orderByFreshness(List list){
+        Collections.sort(list);
+    }
+    public void decreaseIngredientFreshness() {
         for (IngredientType ingredient : kitchen.getAvailableIngredients()) {
             ingredient.setFreshness();
         }
     }
-    public void orderByFreshness(List list){
-        Collections.sort(list);
-    }
-    public void decreaseFreshness(Buffet buffet){
+    public void decreaseFreshness(){
         for (Meal meal: buffet.getMealList()) {
             meal.tickTimestamp();
         }

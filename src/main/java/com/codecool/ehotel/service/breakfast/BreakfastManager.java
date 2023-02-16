@@ -35,7 +35,7 @@ public class BreakfastManager {
                 unhappyGuests += buffetService.consumeFreshest(currentGuestPreference.get(currentPreference));
             }
             // End of cycles
-            buffetService.decreaseFreshness(buffet);
+            buffetService.decreaseFreshness();
             costOfWastedFood += buffetService.collectWaste();
         }
         // End of day and print out metrics

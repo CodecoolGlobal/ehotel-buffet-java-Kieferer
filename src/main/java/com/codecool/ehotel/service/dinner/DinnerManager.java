@@ -1,6 +1,5 @@
 package com.codecool.ehotel.service.dinner;
 
-import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.Guest;
 import com.codecool.ehotel.model.Kitchen;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
@@ -13,7 +12,7 @@ public class DinnerManager {
         this.buffetService = buffetService;
         this.kitchen = kitchen;
     }
-    public  void serve(Set<Guest> guests, Buffet buffet){
+    public  void serve(Set<Guest> guests){
         int waste = 0;
         int happinessRatio = 0;
         buffetService.refillKitchenIngredients(guests,kitchen);
@@ -21,13 +20,13 @@ public class DinnerManager {
             guest.sortPreferredMeals();
             happinessRatio += buffetService.dinnerConsumeFreshest(guest.getPreferredMeals().stream().toList());
         }
-        buffetService.decreaseFreshness(buffet);
+        buffetService.decreaseFreshness();
         waste += buffetService.collectExpiredIngredients();
         // End of day and print out metrics
         System.out.println("Collected happiness points during dinner: "+ happinessRatio);
         System.out.println("After dinner there were $" + waste + " of wasted food.\n");
         //Tick freshness timestamps of ingredients
-        buffetService.decreaseIngredientFreshness(kitchen);
+        buffetService.decreaseIngredientFreshness();
     }
 }
 
