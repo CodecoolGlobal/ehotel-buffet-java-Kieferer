@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface BuffetService {
     int consumeFreshest(MealType meal);
+
     int collectWaste();
+
     void refill(List<Guest> guests, Buffet buffet);
 }

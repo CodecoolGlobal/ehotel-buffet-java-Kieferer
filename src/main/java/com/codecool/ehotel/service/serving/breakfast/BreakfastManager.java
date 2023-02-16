@@ -1,24 +1,23 @@
-package com.codecool.ehotel.service.breakfast;
+package com.codecool.ehotel.service.serving.breakfast;
 
-import com.codecool.ehotel.logic.ResourceManager;
-import com.codecool.ehotel.model.*;
+import com.codecool.ehotel.model.Buffet;
+import com.codecool.ehotel.model.Group;
+import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.model.MealType;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
+import com.codecool.ehotel.utils.TimeParser;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class BreakfastManager {
-    BuffetServiceImpl buffetService;
     private final Random random = new Random();
+    BuffetServiceImpl buffetService;
+    private int numOfDays = 0;
 
     public BreakfastManager(BuffetServiceImpl buffetService) {
         this.buffetService = buffetService;
     }
-
-    private int numOfDays = 0;
 
     public void serve(List<Group> guestGroups, Buffet buffet) {
         //These codes run daily
@@ -30,7 +29,7 @@ public class BreakfastManager {
         //Codes in the body of the for-loop runs 8 times a day as cycles
         for (int i = 0; i < guestGroups.size(); i++) {
             buffetService.refill(guestGroups.get(i).guestGroup(), buffet);
-            //System.out.println("CYCLE " + (i + 1));
+            System.out.println("CYCLE " + (i + 1) + " at " + TimeParser.getTime(6, i + 1));
             for (Guest guest : guestGroups.get(i).guestGroup()) {
                 currentGuestPreference = guest.getGuestType().getMealPreferences();
                 int currentPreference = random.nextInt(0, currentGuestPreference.size());

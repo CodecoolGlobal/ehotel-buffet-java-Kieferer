@@ -1,4 +1,4 @@
-package com.codecool.ehotel.service.breakfast;
+package com.codecool.ehotel.service.serving.breakfast;
 
 import com.codecool.ehotel.model.Group;
 import com.codecool.ehotel.model.Guest;
@@ -6,7 +6,7 @@ import com.codecool.ehotel.model.Guest;
 import java.util.*;
 
 
-public class BreakfastGroup{
+public class BreakfastGroup {
     private final Random random = new Random();
 
     public List<Group> prepareBreakfastGroups(Set<Guest> guests) {
@@ -14,14 +14,14 @@ public class BreakfastGroup{
         List<Group> groups = new LinkedList<>();
 
         for (double time = 6.0; time < 10; time += 0.5) {
-            if(guestsToAssign.size() == 0) {
+            if (guestsToAssign.size() == 0) {
                 break;
             }
 
             int currentGroupSize = random.nextInt(0, guestsToAssign.size());
 
             List<Guest> assignedGuests;
-            if(time==9.5){
+            if (time == 9.5) {
                 assignedGuests = guestsToAssign;
             } else {
                 assignedGuests = fillCurrentGroup(currentGroupSize, guestsToAssign);

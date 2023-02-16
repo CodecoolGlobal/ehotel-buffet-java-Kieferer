@@ -7,16 +7,28 @@ import java.util.List;
 public class Buffet {
     private final List<Guest> guestList = new ArrayList<>();
     private final List<Meal> mealList = new ArrayList<>();
-    public List<Guest> getGuestList() { return guestList; }
-    public List<Meal> getMealList() { return mealList; }
-    public void addGuestToList(Guest guest){
+
+    public List<Guest> getGuestList() {
+        return guestList;
+    }
+
+    public List<Meal> getMealList() {
+        return mealList;
+    }
+
+    public void addGuestToList(Guest guest) {
         guestList.add(guest);
     }
-    public void addMealToList(Meal meal){
+
+    public void addMealToList(Meal meal) {
         mealList.add(meal);
     }
-    public void removeFromMealList(Meal meal) { mealList.remove(meal); }
-    public void removeAllFromMealList(List<Meal> mealList){
+
+    public void removeFromMealList(Meal meal) {
+        mealList.remove(meal);
+    }
+
+    public void removeAllFromMealList(List<Meal> mealList) {
         this.mealList.removeAll(mealList);
     }
 }

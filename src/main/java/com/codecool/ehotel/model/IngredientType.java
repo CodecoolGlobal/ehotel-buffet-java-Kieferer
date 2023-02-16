@@ -11,8 +11,8 @@ public enum IngredientType {
     SUGAR(10, LONG),
     CHOCOLATE(20, SHORT),
     SALT(5, LONG),
-    POTATO(10,LONG),
-    CEREAL(7,MEDIUM),
+    POTATO(10, LONG),
+    CEREAL(7, MEDIUM),
     MILK(10, LONG);
 
     private final int cost;

@@ -3,6 +3,12 @@ package com.codecool.ehotel.model;
 public class Meal implements Comparable {
     private MealType mealType;
     private int timestamp;
+
+    public Meal(MealType mealType, int timestamp) {
+        this.mealType = mealType;
+        this.timestamp = timestamp;
+    }
+
     public MealType getMealType() {
         return mealType;
     }
@@ -18,10 +24,7 @@ public class Meal implements Comparable {
     public void tickTimestamp() {
         this.timestamp++;
     }
-    public Meal(MealType mealType, int timestamp){
-        this.mealType = mealType;
-        this.timestamp = timestamp;
-    }
+
     @Override
     public int compareTo(Object o) {
         return 0;

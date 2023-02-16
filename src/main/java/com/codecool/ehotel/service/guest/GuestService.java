@@ -4,8 +4,6 @@ import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.Guest;
 
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 public interface GuestService {

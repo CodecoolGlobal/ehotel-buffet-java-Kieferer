@@ -2,19 +2,17 @@ package com.codecool.ehotel;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Buffet;
-import com.codecool.ehotel.model.Guest;
 import com.codecool.ehotel.model.Kitchen;
-import com.codecool.ehotel.service.breakfast.BreakfastGroup;
-import com.codecool.ehotel.service.breakfast.BreakfastManager;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
-import com.codecool.ehotel.service.dinner.DinnerManager;
 import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.service.guest.GuestServiceImpl;
 import com.codecool.ehotel.service.kitchen.KitchenManager;
+import com.codecool.ehotel.service.serving.breakfast.BreakfastGroup;
+import com.codecool.ehotel.service.serving.breakfast.BreakfastManager;
+import com.codecool.ehotel.service.serving.dinner.DinnerManager;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EHotelBuffetApplication {
@@ -34,7 +32,7 @@ public class EHotelBuffetApplication {
         Scanner scanner = new Scanner(System.in);
         int lengthOfSeason = 0;
         // Set length of season
-        while (lengthOfSeason <= 0){
+        while (lengthOfSeason <= 0) {
             System.out.println("How many days do you want to simulate?");
             lengthOfSeason = scanner.nextInt();
         }
