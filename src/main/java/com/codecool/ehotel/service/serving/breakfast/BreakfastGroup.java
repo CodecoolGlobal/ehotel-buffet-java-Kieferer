@@ -8,7 +8,6 @@ import java.util.*;
 
 public class BreakfastGroup {
     private final Random random = new Random();
-
     public List<Group> prepareBreakfastGroups(Set<Guest> guests) {
         List<Guest> guestsToAssign = new LinkedList<>(guests);
         List<Group> groups = new LinkedList<>();
@@ -17,9 +16,7 @@ public class BreakfastGroup {
             if (guestsToAssign.size() == 0) {
                 break;
             }
-
             int currentGroupSize = random.nextInt(0, guestsToAssign.size());
-
             List<Guest> assignedGuests;
             if (time == 9.5) {
                 assignedGuests = guestsToAssign;
@@ -28,10 +25,8 @@ public class BreakfastGroup {
             }
             groups.add(new Group(assignedGuests));
         }
-
         return groups;
     }
-
     public List<Guest> fillCurrentGroup(int currentGroupSize, List<Guest> guestsToAssing) {
         List<Guest> guestsToSplitIntoGroups = new ArrayList<>(currentGroupSize);
         for (int i = 0; i < currentGroupSize; i++) {

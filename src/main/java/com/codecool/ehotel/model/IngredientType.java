@@ -18,28 +18,21 @@ public enum IngredientType {
     private final int cost;
     private final MealDurability mealDurability;
     private int freshness;
-
     IngredientType(int cost, MealDurability mealDurability) {
         this.cost = cost;
         this.mealDurability = mealDurability;
         this.freshness = 0;
     }
-
     public int getCost() {
         return cost;
     }
-
     public MealDurability getDurability() {
         return mealDurability;
     }
-
     public int getFreshness() {
         return freshness;
     }
-
     public void setFreshness() {
         this.freshness++;
     }
-
-
 }

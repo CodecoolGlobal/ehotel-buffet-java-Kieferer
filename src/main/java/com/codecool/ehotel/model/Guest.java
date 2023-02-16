@@ -10,21 +10,18 @@ import java.util.TreeSet;
 
 public class Guest {
     private final SortedSet<MealType> preferredMeals = new TreeSet<>();
-    private String name;
-    private GuestType guestType;
-    private LocalDate checkIn, checkOut;
-
+    private final String name;
+    private final GuestType guestType;
+    private final LocalDate checkIn, checkOut;
     public Guest(String name, GuestType guestType, LocalDate checkIn, LocalDate checkOut) {
         this.name = name;
         this.guestType = guestType;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
-
     public SortedSet<MealType> getPreferredMeals() {
         return preferredMeals;
     }
-
     public void sortPreferredMeals() {
         HashMap<MealType, Integer> meals = ResourceManager.getInstance().getMostConsumedMeals();
         var mealList = new ArrayList<>(meals.entrySet());
@@ -34,40 +31,15 @@ public class Guest {
                 preferredMeals.add(meal.getKey());
         }
     }
-
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public GuestType getGuestType() {
         return guestType;
     }
-
-    public void setGuestType(GuestType guestType) {
-        this.guestType = guestType;
-    }
-
     public LocalDate getCheckIn() {
         return checkIn;
     }
-
-    public void setCheckIn(LocalDate checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public LocalDate getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(LocalDate checkOut) {
-        this.checkOut = checkOut;
-    }
-
-
     public Integer getRemainingDays() {
         return checkOut.getDayOfMonth() - ResourceManager.getInstance().getSimulationDate().getDayOfMonth();
     }

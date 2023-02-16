@@ -6,7 +6,6 @@ public class Random {
     public static Integer Range(int min, int max) {
         return (int) (Math.random() * (max - min) + min);
     }
-
     public static LocalDate RangeDate(LocalDate startDate, LocalDate endDate) {
         return LocalDate.of(
                 Range(startDate.getYear(), endDate.getYear()),

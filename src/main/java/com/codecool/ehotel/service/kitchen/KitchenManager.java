@@ -49,7 +49,6 @@ public class KitchenManager {
             }
         }
         //Update kitchens database
-        kitchen.addAllToConsumedIngredients(meal.getIngredients());
         kitchen.removeAllFromAvailableIngredients(meal.getIngredients());
         //Return freshness to subtract it from happiness points.
         return fressnessOfIngredients;
@@ -85,7 +84,6 @@ public class KitchenManager {
                 }
             }
         }
-        kitchen.addAllToConsumedIngredients(expiredIngredient);
         kitchen.removeAllFromAvailableIngredients(expiredIngredient);
         return wastedMoneyOnIngredients;
     }

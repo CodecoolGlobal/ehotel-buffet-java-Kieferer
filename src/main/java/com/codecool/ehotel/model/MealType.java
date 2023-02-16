@@ -16,25 +16,20 @@ public enum MealType {
     BUN(10, MEDIUM, List.of(IngredientType.FLOUR, IngredientType.MILK, IngredientType.YEAST)),
     CEREAL(30, LONG, List.of(IngredientType.CEREAL)),
     MILK(10, LONG, List.of(IngredientType.MILK));
-
     private final int cost;
     private final MealDurability mealDurability;
     private final List<IngredientType> ingredients;
-
     MealType(int cost, MealDurability mealDurability, List<IngredientType> ingredients) {
         this.cost = cost;
         this.mealDurability = mealDurability;
         this.ingredients = ingredients;
     }
-
     public List<IngredientType> getIngredients() {
         return ingredients;
     }
-
     public int getCost() {
         return cost;
     }
-
     public MealDurability getDurability() {
         return mealDurability;
     }

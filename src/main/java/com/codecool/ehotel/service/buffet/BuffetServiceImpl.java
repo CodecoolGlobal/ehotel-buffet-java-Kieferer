@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 public class BuffetServiceImpl implements BuffetService {
     private final Buffet buffet;
-
     public BuffetServiceImpl(Buffet buffet) {
         this.buffet = buffet;
     }
-
     public int consumeFreshest(MealType preferredMeal) {
         orderByFreshness();
         boolean isFound = false;
@@ -30,7 +27,6 @@ public class BuffetServiceImpl implements BuffetService {
         System.out.println("Preferred meal was " + preferredMeal + ", isFound: [" + isFound + "]");
         return 1;
     }
-
     public int dinnerConsumeFreshest(List<MealType> preferredMeal, KitchenManager kitchenManager) {
         for (Meal meal : buffet.getMealList()) {
             for (MealType preferredMealType : preferredMeal) {
@@ -42,17 +38,14 @@ public class BuffetServiceImpl implements BuffetService {
         }
         return 0;
     }
-
     public void orderByFreshness() {
         Collections.sort(buffet.getMealList());
     }
-
     public void decreaseFreshness(Buffet buffet) {
         for (Meal meal : buffet.getMealList()) {
             meal.tickTimestamp();
         }
     }
-
     @Override
     public int collectWaste() {
         int collectiveWastedMoney = 0;
@@ -77,7 +70,6 @@ public class BuffetServiceImpl implements BuffetService {
         buffet.removeAllFromMealList(expiredMeal);
         return collectiveWastedMoney;
     }
-
     @Override
     public void refill(List<Guest> guestList, Buffet buffet) {
         HashMap<GuestType, Integer> amountOfSpecificGuests = new HashMap<>();
