@@ -26,7 +26,7 @@ public class GuestServiceImpl implements GuestService {
         LocalDate startDate = Random.RangeDate(seasonStart, seasonEnd);
         int limit = seasonEnd.getDayOfMonth() - seasonStart.getDayOfMonth();
         return new Guest(JSONReader.getRandomFromJSONFile(),
-                GuestType.valueOf(GuestType.values()[Random.Range(0, GuestType.values().length - 1)].name()),
+                GuestType.valueOf(GuestType.values()[Random.Range(0, GuestType.values().length)].name()),
                 startDate,
                 LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth() + Random.Range(1, limit))
         );
