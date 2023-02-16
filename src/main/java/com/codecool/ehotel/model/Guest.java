@@ -24,6 +24,13 @@ public class Guest {
     }
 
     public void sortPreferredMeals() {
+
+        HashMap<MealType,Integer> meals = ResourceManager.getInstance().getMostConsumedMeals();
+        var mealList = new ArrayList<>(meals.entrySet());
+        mealList.sort((currMeal, mealAfterCurrMeal) -> mealAfterCurrMeal.getValue() - currMeal.getValue());
+
+
+
         /*
 
     Get all entries by calling entrySet() method of Map
@@ -34,10 +41,6 @@ public class Guest {
 
          */
 
-        SortedSet list = new TreeSet();
-        for (var key : ResourceManager.getInstance().getMostConsumedMeals().keySet()){
-
-        }
     }
 
     public String getName() {
