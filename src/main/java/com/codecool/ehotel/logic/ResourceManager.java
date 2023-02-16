@@ -3,9 +3,7 @@ package com.codecool.ehotel.logic;
 import com.codecool.ehotel.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ResourceManager {
     private static final ResourceManager instance = new ResourceManager();
@@ -13,6 +11,7 @@ public class ResourceManager {
     public static ResourceManager getInstance(){
         return instance;
     }
+    public int expendituresOnIngredients = 0;
     private LocalDate simulationStartDate, simulationEndDate, simulationDate;
     private final HashMap<MealType, Integer> mostConsumedMeals = new HashMap<>();
     public LocalDate getSimulationDate(){ return simulationDate; }
@@ -43,4 +42,10 @@ public class ResourceManager {
         return averageGuestPerDay * getLengthOfCycle();
     }
 
+    public int getExpendituresOnIngredients() {
+        return expendituresOnIngredients;
+    }
+    public void increaseExpendituresOnIngredients(int cost){
+        expendituresOnIngredients += cost;
+    }
 }

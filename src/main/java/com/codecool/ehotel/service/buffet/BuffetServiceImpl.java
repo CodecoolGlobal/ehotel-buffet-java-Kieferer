@@ -28,6 +28,7 @@ public class BuffetServiceImpl implements BuffetService {
         for (Meal meal : buffet.getMealList()) {
             for (int i = 0; i < preferredMeal.size(); i++){
                 if (preferredMeal.get(i).getIngredients().equals( meal.getMealType().getIngredients())){
+
                     buffet.removeFromMealList(meal);
                     return 3 - i;
                 }
