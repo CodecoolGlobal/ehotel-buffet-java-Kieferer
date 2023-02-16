@@ -23,10 +23,11 @@ public class GuestServiceImpl implements GuestService {
         //Create a startDate and endDate (limit) which is inside the interval of season.
         LocalDate startDate = Random.RangeDate(seasonStart, seasonEnd);
         int limit = seasonEnd.getDayOfMonth() - seasonStart.getDayOfMonth();
+        LocalDate endOfStaying = startDate.plusDays(Random.Range(1, limit));
         return new Guest(JSONReader.getRandomFromJSONFile(),
                 GuestType.valueOf(GuestType.values()[Random.Range(0, GuestType.values().length)].name()),
                 startDate,
-                LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth() + Random.Range(1, limit))
+                LocalDate.of(endOfStaying.getYear(), endOfStaying.getMonth(), endOfStaying.getDayOfMonth())
         );
     }
 

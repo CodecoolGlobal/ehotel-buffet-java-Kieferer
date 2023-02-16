@@ -3,6 +3,7 @@ package com.codecool.ehotel.logic;
 import com.codecool.ehotel.model.MealType;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
 public class ResourceManager {
@@ -43,7 +44,7 @@ public class ResourceManager {
     }
 
     public Integer getLengthOfCycle() {
-        return simulationEndDate.getDayOfMonth() - simulationStartDate.getDayOfMonth();
+        return Math.toIntExact(ChronoUnit.DAYS.between(simulationStartDate, simulationEndDate));
     }
 
     public void tickSimulationDate() {
