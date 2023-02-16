@@ -2,32 +2,32 @@ package com.codecool.ehotel.service.dinner;
 
 import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.model.Kitchen;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
-import com.codecool.ehotel.service.kitchen.KitchenManager;
 import java.util.Set;
 
 public class DinnerManager {
-    private BuffetServiceImpl buffetService;
-    private KitchenManager kitchenManager;
-    public DinnerManager(BuffetServiceImpl buffetService, KitchenManager kitchenManager) {
+    private final BuffetServiceImpl buffetService;
+    private final Kitchen kitchen;
+    public DinnerManager(BuffetServiceImpl buffetService, Kitchen kitchen) {
         this.buffetService = buffetService;
-        this.kitchenManager = kitchenManager;
+        this.kitchen = kitchen;
     }
     public  void serve(Set<Guest> guests, Buffet buffet){
         int waste = 0;
         int happinessRatio = 0;
-        kitchenManager.refillKitchenIngredients(guests);
+        buffetService.refillKitchenIngredients(guests,kitchen);
         for (Guest guest : guests) {
             guest.sortPreferredMeals();
-            happinessRatio += buffetService.dinnerConsumeFreshest(guest.getPreferredMeals().stream().toList(), kitchenManager);
+            happinessRatio += buffetService.dinnerConsumeFreshest(guest.getPreferredMeals().stream().toList());
         }
         buffetService.decreaseFreshness(buffet);
-        waste += kitchenManager.collectExpiredIngredients();
+        waste += buffetService.collectExpiredIngredients();
         // End of day and print out metrics
         System.out.println("Collected happiness points during dinner: "+ happinessRatio);
         System.out.println("After dinner there were $" + waste + " of wasted food.\n");
         //Tick freshness timestamps of ingredients
-        kitchenManager.decreaseFreshness();
+        buffetService.decreaseIngredientFreshness(kitchen);
     }
 }
 

@@ -2,7 +2,6 @@ package com.codecool.ehotel;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Buffet;
-import com.codecool.ehotel.model.Guest;
 import com.codecool.ehotel.model.Kitchen;
 import com.codecool.ehotel.service.breakfast.BreakfastGroup;
 import com.codecool.ehotel.service.breakfast.BreakfastManager;
@@ -10,11 +9,9 @@ import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
 import com.codecool.ehotel.service.dinner.DinnerManager;
 import com.codecool.ehotel.service.guest.GuestService;
 import com.codecool.ehotel.service.guest.GuestServiceImpl;
-import com.codecool.ehotel.service.kitchen.KitchenManager;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EHotelBuffetApplication {
@@ -24,12 +21,11 @@ public class EHotelBuffetApplication {
         // Initialize services
         Buffet buffet = new Buffet();
         GuestService guestService = new GuestServiceImpl();
-        BuffetServiceImpl buffetService = new BuffetServiceImpl(buffet);
+        Kitchen kitchen = new Kitchen();
+        BuffetServiceImpl buffetService = new BuffetServiceImpl(buffet,kitchen);
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         BreakfastManager breakfastManager = new BreakfastManager(buffetService);
-        Kitchen kitchen = new Kitchen();
-        KitchenManager kitchenManager = new KitchenManager(kitchen);
-        DinnerManager dinnerManager = new DinnerManager(buffetService, kitchenManager);
+        DinnerManager dinnerManager = new DinnerManager(buffetService, kitchen);
         ResourceManager globalResource = ResourceManager.getInstance();
         Scanner scanner = new Scanner(System.in);
         int lengthOfSeason = 0;
