@@ -1,18 +1,16 @@
 package com.codecool.ehotel.service.breakfast;
 
-import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.*;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
+import java.text.DecimalFormat;
 
 public class BreakfastManager {
     BuffetServiceImpl buffetService;
     private final Random random = new Random();
+    private static final DecimalFormat df = new DecimalFormat("0");
 
     public BreakfastManager(BuffetServiceImpl buffetService) {
         this.buffetService = buffetService;
@@ -43,6 +41,9 @@ public class BreakfastManager {
         // End of day and print out metrics
         System.out.println("During breakfast there were " + unhappyGuests + " unhappy guest from " + buffet.getGuestList().size() + ".");
         System.out.println("After breakfast there were $" + costOfWastedFood + " of wasted food.");
-        System.out.println("Ratio: " + ((30 * unhappyGuests) + (costOfWastedFood / 10)) + "\n");
+        System.out.println("Ratio: " + (30 * unhappyGuests + costOfWastedFood / 10) + "\n");
+
+        double happinessSuccessRatio = (buffet.getGuestList().size()-unhappyGuests);
+        System.out.println("The guests " +  df.format(happinessSuccessRatio /buffet.getGuestList().size()*100) + "% were happy");
     }
 }
