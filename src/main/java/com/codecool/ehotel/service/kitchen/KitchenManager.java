@@ -23,6 +23,8 @@ public class KitchenManager{
             }
         }
         kitchen.addAllToConsumedIngredients(meal.getIngredients());
+        kitchen.removeAllFromAvailableIngredients(meal.getIngredients());
+
         //TODO calculation for freshness.
 
 
