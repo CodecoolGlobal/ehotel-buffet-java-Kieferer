@@ -1,11 +1,10 @@
 package com.codecool.ehotel.logic;
 
-import com.codecool.ehotel.model.Buffet;
-import com.codecool.ehotel.model.Guest;
-import com.codecool.ehotel.model.Meal;
+import com.codecool.ehotel.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ResourceManager {
@@ -15,9 +14,18 @@ public class ResourceManager {
         return instance;
     }
     private LocalDate simulationStartDate, simulationEndDate, simulationDate;
-
+    private HashMap<MealType, Integer> mostConsumedMeals = new HashMap<>();
     public LocalDate getSimulationDate(){ return simulationDate; }
     public LocalDate getSimulationEndDate(){ return simulationEndDate; }
+    public HashMap<MealType, Integer> getMostConsumedMeals(){
+        return mostConsumedMeals;
+    }
+    public void incrementSpecificMeal(MealType mealType){
+        if (mostConsumedMeals.containsKey(mealType))
+            mostConsumedMeals.merge(mealType, 1, Integer::sum);
+        else
+            mostConsumedMeals.put(mealType, 1);
+    }
     public void setSimulationInterval(LocalDate startDate, LocalDate endDate){
         simulationStartDate = startDate;
         simulationEndDate = endDate;

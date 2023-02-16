@@ -41,6 +41,6 @@ public class GuestServiceImpl implements GuestService {
         //Now we have the whole list of currently available guests, but have to filter to those whose reservation starting date
         //is the same as current date, or we are already beyond.
         return buffet.getGuestList().stream().filter(guest ->
-                guest.checkIn().getDayOfMonth() <= simulatedDayOfMonth).collect(Collectors.toSet());
+                guest.getCheckIn().getDayOfMonth() <= simulatedDayOfMonth).collect(Collectors.toSet());
     }
 }

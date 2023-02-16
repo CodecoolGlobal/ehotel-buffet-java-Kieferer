@@ -2,6 +2,7 @@ package com.codecool.ehotel;
 
 import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.Buffet;
+import com.codecool.ehotel.model.Guest;
 import com.codecool.ehotel.service.breakfast.BreakfastGroup;
 import com.codecool.ehotel.service.breakfast.BreakfastManager;
 import com.codecool.ehotel.service.buffet.BuffetServiceImpl;
@@ -47,5 +48,6 @@ public class EHotelBuffetApplication {
             dinnerManager.serve(guestService.getGuestsForDay(buffet), buffet);
             globalResource.tickSimulationDate();
         }
+        buffet.getGuestList().get(0).sortPreferredMeals();
     }
 }

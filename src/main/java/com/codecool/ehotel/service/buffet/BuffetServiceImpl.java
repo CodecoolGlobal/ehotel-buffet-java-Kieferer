@@ -15,6 +15,7 @@ public class BuffetServiceImpl implements BuffetService {
         boolean isFound = false;
         for (Meal meal : buffet.getMealList()) {
             if (meal.getMealType() == preferredMeal){
+                ResourceManager.getInstance().incrementSpecificMeal(meal.getMealType());
                 isFound = true;
                 buffet.removeFromMealList(meal);
                 return 0;
@@ -70,22 +71,21 @@ public class BuffetServiceImpl implements BuffetService {
         return collectiveWastedMoney;
     }
     @Override
-    public void refill(List<Guest> guests, Buffet buffet) {
+    public void refill(List<Guest> guestList, Buffet buffet) {
         HashMap<GuestType, Integer> amountOfSpecificGuests = new HashMap<>();
         HashMap<MealType, Integer> amountOfSpecificMeal = new HashMap<>();
 
         HashMap<MealType, Integer> amountOfDesiredMeal = new HashMap<>();
         // Iterate through guests and note how many specific type found
-        for (Guest guest : guests){
-            if (amountOfSpecificGuests.containsKey(guest.guestType())){
-                amountOfSpecificGuests.merge(guest.guestType(), 1, Integer::sum);
+        for (Guest guests : guestList){
+            if (amountOfSpecificGuests.containsKey(guests.getGuestType())){
+                amountOfSpecificGuests.merge(guests.getGuestType(), 1, Integer::sum);
             } else {
-                amountOfSpecificGuests.put(guest.guestType(), 1);
+                amountOfSpecificGuests.put(guests.getGuestType(), 1);
             }
         }
         // Load every possible meals from MealTypes enum
         for (MealType meal : MealType.values()){
-            if (meal.getCost() > 10000)
                 amountOfSpecificMeal.put(meal, 0);
         }
         // Iterate through meal and note how many specific type found

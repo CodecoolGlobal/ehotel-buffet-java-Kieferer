@@ -37,7 +37,7 @@ public class DinnerManager {
         for (Guest currentguest : guest) {
             //buffetService.refill(guestGroups.get(i).guestGroup(), buffet);
             //System.out.println("CYCLE " + (i + 1));
-                currentGuestPreference = currentguest.guestType().getMealPreferences();
+                currentGuestPreference = currentguest.getGuestType().getMealPreferences();
                 int currentHappiness = buffetService.dinnerConsumeFreshest(currentGuestPreference);
                 if (currentHappiness == 0)
                     unhappyGuests++;
