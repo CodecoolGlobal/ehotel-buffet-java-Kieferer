@@ -11,6 +11,7 @@ import com.codecool.ehotel.service.guest.GuestServiceImpl;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EHotelBuffetApplication {
     //Hello
@@ -23,8 +24,13 @@ public class EHotelBuffetApplication {
         BreakfastGroup breakfastGroup = new BreakfastGroup();
         BreakfastManager breakfastManager = new BreakfastManager(buffetService);
         ResourceManager globalResource = ResourceManager.getInstance();
+        Scanner scanner = new Scanner(System.in);
+        int lengthOfSeason = 0;
         // Set length of season
-        int lengthOfSeason = 4;
+        while (lengthOfSeason <= 0){
+            System.out.println("How many days do you want to simulate?");
+            lengthOfSeason = scanner.nextInt();
+        }
         globalResource.setSimulationInterval(
                 LocalDate.of(2023, 10, 1),
                 LocalDate.of(2023, 10, 1).plusDays(lengthOfSeason));
