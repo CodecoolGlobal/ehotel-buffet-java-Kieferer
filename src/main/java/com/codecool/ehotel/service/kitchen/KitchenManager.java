@@ -1,10 +1,9 @@
 package com.codecool.ehotel.service.kitchen;
 
+import com.codecool.ehotel.logic.ResourceManager;
 import com.codecool.ehotel.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class KitchenManager{
     private Kitchen kitchen;
@@ -12,12 +11,29 @@ public class KitchenManager{
     public KitchenManager(Kitchen kitchen) {
         this.kitchen = kitchen;
     }
-    public void refillKitchen(Kitchen kitchen, List<Group> guestGroups, String statistic) {
+    public void refillKitchenIngredients(Kitchen kitchen, Set<Guest>guestsOfTheDay) {
+        Iterator guestIterator = guestsOfTheDay.iterator();
+
+        while(guestIterator.hasNext()) {
+            Guest guests = (Guest) guestIterator.next();
+            for (MealType meal: guests.getPreferredMeals()) {
+                kitchen.refillIngredients(meal.getIngredients());
+                calculateExpenditureUponBuyingIngredients(meal);
+            }
+        }
 
     }
+    public void calculateExpenditureUponBuyingIngredients(MealType meal){
+        int expenditure = ResourceManager.getInstance().getExpendituresOnIngredients();
+        for (IngredientType ingredient: meal.getIngredients()) {
+            expenditure += ingredient.getCost();
+        }
+        ResourceManager.getInstance().increaseExpendituresOnIngredients(expenditure);
+    }
+
+
     public void createMeal(MealType meal) {
-        for (IngredientType ingredient: meal.getIngredients()
-             ) {
+        for (IngredientType ingredient: meal.getIngredients()) {
             if(!kitchen.getAvailableIngredients().contains(ingredient)){
                 return;
             }
