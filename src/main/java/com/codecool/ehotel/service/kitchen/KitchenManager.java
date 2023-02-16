@@ -7,21 +7,16 @@ import java.util.*;
 
 public class KitchenManager{
     private Kitchen kitchen;
-
     public KitchenManager(Kitchen kitchen) {
         this.kitchen = kitchen;
     }
-    public void refillKitchenIngredients(Kitchen kitchen, Set<Guest>guestsOfTheDay) {
-        Iterator guestIterator = guestsOfTheDay.iterator();
-
-        while(guestIterator.hasNext()) {
-            Guest guests = (Guest) guestIterator.next();
-            for (MealType meal: guests.getPreferredMeals()) {
+    public void refillKitchenIngredients(Set<Guest> guestsOfTheDay) {
+        for (Guest guests : guestsOfTheDay) {
+            for (MealType meal : guests.getPreferredMeals()) {
                 kitchen.refillIngredients(meal.getIngredients());
                 calculateExpenditureUponBuyingIngredients(meal);
             }
         }
-
     }
     public void calculateExpenditureUponBuyingIngredients(MealType meal){
         int expenditure = ResourceManager.getInstance().getExpendituresOnIngredients();
@@ -30,23 +25,27 @@ public class KitchenManager{
         }
         ResourceManager.getInstance().increaseExpendituresOnIngredients(expenditure);
     }
-
-
-    public void createMeal(MealType meal) {
-        for (IngredientType ingredient: meal.getIngredients()) {
+    public int createMeal(MealType meal) {
+        int fressnessOfIngredients = 0;
+        //Ingredients sorted from freshest to oldest for better
+        orderByFreshness();
+        //Check for ingredients and use them if found and return happiness points by factors
+        for (IngredientType ingredient : meal.getIngredients()) {
+            fressnessOfIngredients += ingredient.getFreshness();
             if(!kitchen.getAvailableIngredients().contains(ingredient)){
-                return;
+                //When we can't make a meal because we are low on ingredients,
+                //its gives as minus 10 happiness points.
+                return -10;
             }
         }
+        //Update kitchens database
         kitchen.addAllToConsumedIngredients(meal.getIngredients());
         kitchen.removeAllFromAvailableIngredients(meal.getIngredients());
-
-        //TODO calculation for freshness.
-
-
+        //Return freshness to subtract it from happiness points.
+        return fressnessOfIngredients;
 
     }
-    public void orderByFreshness(Kitchen kitchen){
+    public void orderByFreshness(){
         Collections.sort(kitchen.getAvailableIngredients());
     }
     public void decreaseFreshness() {
@@ -54,7 +53,6 @@ public class KitchenManager{
             ingredient.setFreshness();
         }
     }
-
     public int collectExpiredIngredients() {
         int wastedMoneyOnIngredients = 0;
         List<IngredientType> expiredIngredient = new ArrayList<>();
@@ -78,6 +76,4 @@ public class KitchenManager{
             kitchen.removeAllFromAvailableIngredients(expiredIngredient);
             return wastedMoneyOnIngredients;
     }
-
-
 }
