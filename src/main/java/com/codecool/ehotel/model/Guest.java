@@ -9,4 +9,7 @@ public record Guest(String name, GuestType guestType, LocalDate checkIn, LocalDa
     public Integer getRemainingDays(){
         return checkOut.getDayOfMonth() - ResourceManager.getInstance().getSimulationDate().getDayOfMonth();
     }
+    public void sortPreference(){
+
+    }
 }
